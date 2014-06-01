@@ -50,11 +50,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InMemoryUniversity.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="InMemoryUniversity.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/junk/InMemoryUniversity.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
-              <folding />
+            <state line="64" column="0" selection-start="1563" selection-end="1563" vertical-scroll-proportion="1.8349514" vertical-offset="15" max-vertical-offset="1170">
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,10 +70,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Graph.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Graph.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/Graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="50" selection-start="1328" selection-end="1328" vertical-scroll-proportion="0.72392637" vertical-offset="276" max-vertical-offset="765">
+            <state line="42" column="50" selection-start="1328" selection-end="1328" vertical-scroll-proportion="-13.615385" vertical-offset="276" max-vertical-offset="765">
               <folding>
                 <element signature="e#26#73#0" expanded="true" />
               </folding>
@@ -120,9 +122,9 @@
       <list>
         <option value="$PROJECT_DIR$/catalog/models.py" />
         <option value="$PROJECT_DIR$/iUniversity/settings.py" />
-        <option value="$PROJECT_DIR$/junk/InMemoryUniversity.py" />
         <option value="$PROJECT_DIR$/junk/IDGenerator/IDGenerator.py" />
         <option value="$PROJECT_DIR$/junk/Graph.py" />
+        <option value="$PROJECT_DIR$/junk/InMemoryUniversity.py" />
       </list>
     </option>
   </component>
@@ -496,13 +498,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/InMemoryUniversity.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/junk/IDGenerator/IDGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="25" selection-start="617" selection-end="617" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
@@ -512,9 +507,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/Graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="50" selection-start="1328" selection-end="1328" vertical-scroll-proportion="0.72392637" vertical-offset="276" max-vertical-offset="765">
+        <state line="42" column="50" selection-start="1328" selection-end="1328" vertical-scroll-proportion="-13.615385" vertical-offset="276" max-vertical-offset="765">
           <folding>
             <element signature="e#26#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/InMemoryUniversity.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="1563" selection-end="1563" vertical-scroll-proportion="1.8349514" vertical-offset="15" max-vertical-offset="1170">
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
           </folding>
         </state>
       </provider>
