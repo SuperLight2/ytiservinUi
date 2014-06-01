@@ -1,6 +1,5 @@
 from time import time
 
-
 class ResourceRestriction(object):
     PUBLIC = 1
     PRIVATE = 2
@@ -18,19 +17,15 @@ class GroupType(object):
     STUDENTS_GROUP = 3
 
 
-def generate_global_id():
-    return 0
-
-
 class Resource:
     def __init__(self):
-        self.id = generate_global_id()
+        self.id = IDGenerator.generate_unique_id()
         self.mod_timestamps = [time()]
 
 
 class Group:
     def __init__(self, type, name, parent_id):
-        self.id = generate_global_id()
+        self.id = IDGenerator.generate_unique_id()
         self.type = type
         self.name = name
         self.parents = [parent_id]
@@ -43,7 +38,7 @@ class Group:
 
 class User:
     def __init__(self, first_name, last_name):
-        self.id = generate_global_id()
+        self.id = IDGenerator.generate_unique_id()
         self.first_name = first_name
         self.last_name = last_name
 
