@@ -1,6 +1,7 @@
 __author__ = 'gumerovif'
 
-from IDGenerator.IDGenerator import IDGenerator
+# really bad. don't do that anytime
+from tools.id_generator import IDGenerator
 from datetime import datetime
 
 

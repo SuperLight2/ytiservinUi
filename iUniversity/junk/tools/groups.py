@@ -1,17 +1,8 @@
-from IDGenerator.IDGenerator import IDGenerator
-from datetime import datetime
+__author__ = 'gumerovif'
+
+from id_generator import IDGenerator
+from privacy import Privacy
 from Queue import Queue
-
-
-class ResourceRestriction(object):
-    PUBLIC = 1
-    PRIVATE = 2
-
-
-class GroupPermission(object):
-    GUEST = 1
-    MEMBER = 2
-    ADMIN = 3
 
 
 class GroupType(object):
@@ -19,20 +10,6 @@ class GroupType(object):
     UNIVERSITY = 2
     STUDENTS_GROUP = 3
 
-
-class Resource:
-    def __init__(self):
-        self.id = IDGenerator.generate_unique_id()
-        self.mod_timestamps = [datetime.now()]
-
-    def get_id(self):
-        return self.id
-
-
-def allowed_to_read(permission, restriction):
-    return \
-        (permission in [GroupPermission.ADMIN, GroupPermission.MEMBER]) \
-            or (permission == GroupPermission.GUEST and restriction == ResourceRestriction.PUBLIC)
 
 class Group:
     def __init__(self, type, name, parent_id):
@@ -66,23 +43,27 @@ class Group:
         resources = set()
         permission = self.participants[user_id]
         for resource, restriction in self.resources.iteritems():
-            if allowed_to_read(permission, restriction):
+            if Privacy.allowed_to_read(permission, restriction):
                 resources.add(resource.get_id())
         return resources
 
 
 class GroupsHierarchy:
     def __init__(self):
-        root_group = Group(GroupType.ROOT, 'ROOT', None)
-        self.root_group_id = root_group.get_id()
+        self.root_group = Group(GroupType.ROOT, 'ROOT', None)
+        self.root_group_id = self.root_group.get_id()
         self.groups = dict()
-        self.groups[root_group.get_id()] = root_group
+        self.groups[self.root_group.get_id()] = self.root_group
 
-    def add_group(self, type, name, parent_id):
+    def add_group(self, type, name, parent_group=None):
+        if parent_group is None:
+            parent_group = self.root_group
+        parent_id = parent_group.get_id()
         group = Group(type, name, parent_id)
         self.groups[group.get_id()] = group
         parent_group = self.find_group_by_id(parent_id)
         parent_group.add_child_group(group.get_id())
+        return group
 
     def find_group_by_id(self, group_id):
         return self.groups[group_id]
@@ -104,27 +85,11 @@ class GroupsHierarchy:
 
     def get_resources_for_user(self, user_id):
         found_group_ids = set()
-        for group in self.groups:
+        for group_id, group in self.groups.iteritems():
             if user_id in group.get_users():
-                path_to_root = self.path_to_root(group.get_id())
+                path_to_root = self.path_to_root(group_id)
                 found_group_ids.update(path_to_root)
         resources = set()
         for group_id in found_group_ids:
             group = self.find_group_by_id(group_id)
             resources.update(group.get_resources_for_user(user_id))
-
-
-class User:
-    def __init__(self, first_name, last_name):
-        self.id = IDGenerator.generate_unique_id()
-        self.first_name = first_name
-        self.last_name = last_name
-        self.in_groups = set()
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()

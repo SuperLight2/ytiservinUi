@@ -2,6 +2,7 @@ __author__ = 'gumerovif'
 
 import random
 
+
 class IDGenerator(object):
     IDs = set()
 
