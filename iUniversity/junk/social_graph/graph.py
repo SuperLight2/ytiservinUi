@@ -1,8 +1,9 @@
 __author__ = 'gumerovif'
 
 # really bad. don't do that anytime
-from tools.id_generator import IDGenerator
 from datetime import datetime
+
+from core.id_generator import IDGenerator
 
 
 class VertexDescriptor:

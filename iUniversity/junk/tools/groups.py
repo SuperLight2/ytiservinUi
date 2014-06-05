@@ -1,8 +1,9 @@
 __author__ = 'gumerovif'
 
-from id_generator import IDGenerator
-from privacy import Privacy
 from Queue import Queue
+
+from core.id_generator import IDGenerator
+from privacy import Privacy
 
 
 class GroupType(object):

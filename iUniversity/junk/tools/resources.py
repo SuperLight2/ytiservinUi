@@ -1,7 +1,8 @@
 __author__ = 'gumerovif'
 
-from id_generator import IDGenerator
 from datetime import datetime
+
+from core.id_generator import IDGenerator
 
 
 class Resource:

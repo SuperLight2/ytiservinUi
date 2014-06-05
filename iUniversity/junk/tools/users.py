@@ -1,6 +1,6 @@
 __author__ = 'gumerovif'
 
-from id_generator import IDGenerator
+from core.id_generator import IDGenerator
 
 class User:
     def __init__(self, first_name, last_name):
