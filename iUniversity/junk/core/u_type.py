@@ -4,14 +4,13 @@ __author__ = 'gumerovif'
 class UType(object):
     ALLOWED_TYPES = [int, str, float, tuple, dict]
     REQUIRED_PREFIX = 'required'
-    OPTIONAL_PREFIX = 'optional'
     CONST_PREFIX = 'const'
 
     required_uid = int
     required_utype = str
 
     @classmethod
-    def get_attributes(cls):
+    def _get_attributes(cls):
         for pcls in cls.__mro__:
             if pcls is object:
                 continue
@@ -20,17 +19,17 @@ class UType(object):
 
     @classmethod
     def get_key_values(cls):
-        for attr_name, attr in cls.get_attributes():
-            if not (attr_name.startswith(UType.REQUIRED_PREFIX) or attr_name.startswith(UType.OPTIONAL_PREFIX)):
-                continue
-            yield attr_name, attr
+        result = []
+        for attr_name, attr in cls._get_attributes():
+            if attr_name.startswith(UType.REQUIRED_PREFIX):
+                result.append((attr_name, attr))
+        return result
 
     @classmethod
     def get_constants(cls):
-        for attr_name, attr in cls.get_attributes():
-            if not attr_name.startswith(UType.CONST_PREFIX):
-                continue
-            yield attr_name, attr
+        for attr_name, attr in cls._get_attributes():
+            if attr_name.startswith(UType.CONST_PREFIX):
+                yield attr_name, attr
 
     @classmethod
     def validate(cls):
@@ -56,7 +55,6 @@ class UEdgeType(UType):
     required_uid2 = int
     required_timestamp = int
     required_info = str
-
 
 
 def validate_u_type():

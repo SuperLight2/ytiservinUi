@@ -23,28 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="u_query.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_query.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="u_type.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="19" selection-start="1484" selection-end="1499" vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="1125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+            <state line="8" column="16" selection-start="164" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
               <folding />
             </state>
           </provider>
@@ -53,7 +35,7 @@
       <file leaf-file-name="u_types.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+            <state line="17" column="0" selection-start="439" selection-end="439" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
               <folding>
                 <element signature="e#26#74#0" expanded="true" />
               </folding>
@@ -61,10 +43,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="u_graph_storage.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="db_runner.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/junk/core/db_runner.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="18" selection-start="722" selection-end="722" vertical-scroll-proportion="0.6394316" vertical-offset="0" max-vertical-offset="720">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="u_graph_storage.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="37" selection-start="417" selection-end="417" vertical-scroll-proportion="0.21760155" vertical-offset="0" max-vertical-offset="1034">
+            <state line="38" column="22" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1290">
+              <folding>
+                <element signature="e#26#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="u_user.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_user.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="22" selection-start="98" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wsgi.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/iUniversity/wsgi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/iUniversity/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
               <folding />
             </state>
           </provider>
@@ -74,17 +94,6 @@
         <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/u_member_of_group.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
-              <folding>
-                <marker date="1401984355000" expanded="true" signature="94:222" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HOWTO.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/HOWTO.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="23" selection-start="58" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
               <folding />
             </state>
           </provider>
@@ -99,19 +108,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="u_user.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_user.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="u_group.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_group.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="16" selection-start="70" selection-end="80" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+            <state line="8" column="0" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
               <folding />
             </state>
           </provider>
@@ -147,23 +147,24 @@
         <option value="$PROJECT_DIR$/junk/tools/great_storage.py" />
         <option value="$PROJECT_DIR$/junk/core/great_storage.py" />
         <option value="$PROJECT_DIR$/junk/core/u_types/u_user.py" />
-        <option value="$PROJECT_DIR$/junk/core/u_query.py" />
         <option value="$PROJECT_DIR$/junk/core/u_vertex_types/__init__.py" />
         <option value="$PROJECT_DIR$/junk/core/u_vertex_types/u_group.py" />
         <option value="$PROJECT_DIR$/junk/core/u_vertex_types/u_resource.py" />
-        <option value="$PROJECT_DIR$/junk/core/u_type.py" />
         <option value="$PROJECT_DIR$/junk/core/u_edge_types/u_member_of_group.py" />
         <option value="$PROJECT_DIR$/junk/core/HOWTO.txt" />
+        <option value="$PROJECT_DIR$/junk/core/u_type.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_query.py" />
         <option value="$PROJECT_DIR$/junk/core/u_types.py" />
         <option value="$PROJECT_DIR$/junk/core/u_graph_storage.py" />
+        <option value="$PROJECT_DIR$/junk/core/db_runner.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="51" />
+    <option name="x" value="46" />
     <option name="y" value="22" />
-    <option name="width" value="2509" />
-    <option name="height" value="1418" />
+    <option name="width" value="1394" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -356,16 +357,20 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistory" value="" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
-      <console-settings />
+      <console-settings module-name="iUniversity" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="iUniversity" />
+      </console-settings>
     </option>
   </component>
   <component name="RecentsManager">
@@ -373,42 +378,24 @@
       <recent name="$PROJECT_DIR$/junk/core" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.u_types">
-    <configuration default="false" name="in_memory_iUniversity" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/junk" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="iUniversity" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/junk/in_memory_iUniversity.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.db_runner">
     <configuration default="false" name="great_storage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="/opt/local/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/junk/tools" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="iUniversity" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/junk/core/u_graph_storage.py" />
       <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -461,6 +448,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="iUniversity" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/junk/core/u_types.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="db_runner" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/junk/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="iUniversity" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/junk/core/db_runner.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -588,19 +593,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.in_memory_iUniversity" />
-      <item index="1" class="java.lang.String" itemvalue="Python.great_storage" />
-      <item index="2" class="java.lang.String" itemvalue="Python.u_type" />
-      <item index="3" class="java.lang.String" itemvalue="Python.u_query" />
-      <item index="4" class="java.lang.String" itemvalue="Python.u_types" />
+      <item index="0" class="java.lang.String" itemvalue="Python.great_storage" />
+      <item index="1" class="java.lang.String" itemvalue="Python.u_type" />
+      <item index="2" class="java.lang.String" itemvalue="Python.u_query" />
+      <item index="3" class="java.lang.String" itemvalue="Python.u_types" />
+      <item index="4" class="java.lang.String" itemvalue="Python.db_runner" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.u_types" />
-        <item index="1" class="java.lang.String" itemvalue="Python.u_query" />
-        <item index="2" class="java.lang.String" itemvalue="Python.u_type" />
-        <item index="3" class="java.lang.String" itemvalue="Python.great_storage" />
-        <item index="4" class="java.lang.String" itemvalue="Python.in_memory_iUniversity" />
+        <item index="0" class="java.lang.String" itemvalue="Python.db_runner" />
+        <item index="1" class="java.lang.String" itemvalue="Python.great_storage" />
+        <item index="2" class="java.lang.String" itemvalue="Python.u_types" />
+        <item index="3" class="java.lang.String" itemvalue="Python.u_query" />
+        <item index="4" class="java.lang.String" itemvalue="Python.u_type" />
       </list>
     </recent_temporary>
   </component>
@@ -614,22 +619,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="51" y="22" width="2509" height="1418" extended-state="6" />
+    <frame x="46" y="22" width="1394" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880098" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13870068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24969098" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24907339" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21275018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24103832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -811,16 +816,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="781" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/iUniversity/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="781" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iUniversity/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="781" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="0" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225" />
@@ -829,13 +824,6 @@
     <entry file="file://$PROJECT_DIR$/catalog/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="0" selection-start="309" selection-end="309" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iUniversity/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="14" selection-start="1027" selection-end="1027" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1380">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/tools/users.py">
@@ -903,18 +891,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/u_member_of_group.py">
+    <entry file="file://$PROJECT_DIR$/junk/social_graph/graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
-          <folding>
-            <marker date="1401984355000" expanded="true" signature="94:222" placeholder="..." />
-          </folding>
+        <state line="8" column="0" selection-start="137" selection-end="137" vertical-scroll-proportion="0.08704062" vertical-offset="0" max-vertical-offset="1034">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_user.py">
+    <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_group.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+        <state line="8" column="0" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
           <folding />
         </state>
       </provider>
@@ -926,23 +912,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_group.py">
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/u_member_of_group.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="70" selection-end="80" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+        <state line="10" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/social_graph/graph.py">
+    <entry file="file://$PROJECT_DIR$/iUniversity/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="137" selection-end="137" vertical-scroll-proportion="0.08704062" vertical-offset="0" max-vertical-offset="1034">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iUniversity/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iUniversity/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="32" selection-start="1709" selection-end="1720" vertical-scroll-proportion="0.58614564" vertical-offset="615" max-vertical-offset="1380">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+        <state line="17" column="0" selection-start="439" selection-end="439" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
           <folding>
             <element signature="e#26#74#0" expanded="true" />
           </folding>
@@ -951,21 +951,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="19" selection-start="1484" selection-end="1499" vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="1125">
+        <state line="8" column="16" selection-start="164" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_query.py">
+    <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/u_user.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
+        <state line="6" column="22" selection-start="98" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="37" selection-start="417" selection-end="417" vertical-scroll-proportion="0.21760155" vertical-offset="0" max-vertical-offset="1034">
+        <state line="38" column="22" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1290">
+          <folding>
+            <element signature="e#26#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/db_runner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="18" selection-start="722" selection-end="722" vertical-scroll-proportion="0.6394316" vertical-offset="0" max-vertical-offset="720">
           <folding />
         </state>
       </provider>
