@@ -7,7 +7,6 @@ class DBRunner(object):
     # TODO: add exception handler
     @classmethod
     def run(cls, db_query):
-        print db_query
         db = MySQLdb.connect(host="127.0.0.1", user="root", passwd="NEWPASSWORD", db="main",use_unicode=True)
         try:
             cur = db.cursor(MySQLdb.cursors.DictCursor)

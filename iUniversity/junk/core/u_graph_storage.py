@@ -3,7 +3,6 @@ __author__ = 'gumerovif'
 import json
 
 from core.id_generator import IDGenerator
-from core.u_type import UVertexType, UEdgeType
 from core.u_types import UVertexTypes, UEdgeTypes
 from core.db_runner import DBRunner
 
@@ -13,8 +12,6 @@ class UGraphStorage(object):
     DBVertexesTable = 'u_vertexes'
     DBEdgesTable = 'u_edges'
 
-
-    # we should use this function when creating a new objects
     @classmethod
     def generate_new_id(cls, u_vertex_type_id):
         if UVertexTypes.get(u_vertex_type_id) is None:
@@ -36,18 +33,27 @@ class UGraphStorage(object):
         return uid
 
     @classmethod
-    def u_vertex_set(cls, uid, key, value):
-        query = "SELECT data FROM %s WHERE id=%d" % (cls.DBVertexesTable, uid)
+    def u_vertex_get(cls, uid):
+        query = "SELECT * FROM %s WHERE id=%d" % (cls.DBVertexesTable, uid)
         results = DBRunner.run(query)
-        print results
+        if len(results) == 0:
+            return None, None
+        if len(results) != 0:
+            result = results[0]
+            return int(result["u_type"]), json.loads(result["data"])
+
+    @classmethod
+    def u_vertex_set(cls, uid, key, value):
+        u_type, data = cls.u_vertex_get(uid)
+        data[key] = value
+        data = json.dumps(data)
+        DBRunner.run("UPDATE %s SET data='%s' WHERE id=%d" % (cls.DBVertexesTable, data, uid))
 
     @classmethod
     def u_vertex_delete(cls, uid):
-        return UQuery().add('delete_vertex', {'uid': uid})
+        query = "DELETE FROM %s WHERE id=%d" % (cls.DBVertexesTable, uid)
+        DBRunner.run(query)
 
-    @classmethod
-    def u_vertex_get(cls, uid):
-        return UQuery().add('get_vertex', {'uid': uid})
 
     @classmethod
     def u_vertex_get_type(cls, uid):
@@ -77,4 +83,7 @@ class UGraphStorage(object):
 if __name__ == '__main__':
     uid = UGraphStorage.u_vertex_create(UVertexTypes.USER)
     print id
-    #UGraphStorage.u_vertex_set(uid, "required_last_name", "IVAN")
+    UGraphStorage.u_vertex_set(uid, "required_last_name", "IVAN")
+    u_type, data = UGraphStorage.u_vertex_get(uid)
+    print u_type, data
+    UGraphStorage.u_vertex_delete(uid)
