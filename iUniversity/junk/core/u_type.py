@@ -1,16 +1,14 @@
 __author__ = 'gumerovif'
 
+from core.u_field import UField
+
 
 class UType(object):
-    ALLOWED_TYPES = [int, str, float, tuple, dict]
-    REQUIRED_PREFIX = 'required'
-    CONST_PREFIX = 'const'
-
-    required_uid = int
-    required_utype = str
+    uid = UField(field_type=int, prefix="")
+    utype = UField(field_type=int, prefix="")
 
     @classmethod
-    def _get_attributes(cls):
+    def _get_all_attributes(cls):
         for pcls in cls.__mro__:
             if pcls is object:
                 continue
@@ -18,27 +16,14 @@ class UType(object):
                 yield attr_name, attr
 
     @classmethod
-    def get_key_values(cls):
-        result = []
-        for attr_name, attr in cls._get_attributes():
-            if attr_name.startswith(UType.REQUIRED_PREFIX):
-                result.append((attr_name, attr))
+    def get_attributes(cls, prefix=""):
+        result = {}
+        for attr_name, attr in cls._get_all_attributes():
+            if not isinstance(attr, UField):
+                continue
+            if attr.prefix == prefix:
+                result[attr_name] = attr
         return result
-
-    @classmethod
-    def get_constants(cls):
-        for attr_name, attr in cls._get_attributes():
-            if attr_name.startswith(UType.CONST_PREFIX):
-                yield attr_name, attr
-
-    @classmethod
-    def validate(cls):
-        for attr_name, attr in cls.get_key_values():
-            if attr not in UType.ALLOWED_TYPES:
-                raise BaseException("Key {0} has not allowed value type".format(attr_name))
-        for attr_name, attr in cls.get_constants():
-            if attr is None:
-                raise BaseException("Key {0} has None value".format(attr_name))
 
 
 class UVertexType(UType):
@@ -46,23 +31,13 @@ class UVertexType(UType):
 
 
 class UEdgeType(UType):
-    const_uid1_type = None
-    const_uid2_type = None
+
+    uid1_type = None
+    uid2_type = None
     const_direction = None
     const_inverse_type = None
 
-    required_uid1 = int
-    required_uid2 = int
-    required_timestamp = int
-    required_info = str
-
-
-def validate_u_type():
-    # go through the all subclasses of UType and call validate() function
-    pass
-
-
-if __name__ == '__main__':
-    UType.validate()
-    UVertexType.validate()
-    UEdgeType.validate()
+    uid1 = UField(field_type=int, prefix="")
+    uid2 = UField(field_type=int, prefix="")
+    timestamp = UField(field_type=int, prefix="")
+    info = UField(field_type=str, prefix="")

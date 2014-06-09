@@ -4,39 +4,44 @@ import MySQLdb
 
 
 class DBRunner(object):
-    # TODO: add exception handler
-    @classmethod
-    def run(cls, db_query):
-        db = MySQLdb.connect(host="127.0.0.1", user="root", passwd="NEWPASSWORD", db="main",use_unicode=True)
+    def __init__(self, ):
+        self.db = MySQLdb.connect(host="127.0.0.1", user="root", passwd="NEWPASSWORD", db="main", use_unicode=True)
+        self.cursor = None
+        self.success = None
+        self.error = None
+
+    def __del__(self):
+        if self.db:
+            self.db.close()
+
+    def run(self, query):
         try:
-            cur = db.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute(db_query)
-            db.commit()
-            results = []
-            for i in xrange(cur.rowcount):
-                results.append(cur.fetchone())
-            return results
+            self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
+            self.cursor.execute(query)
+            self.db.commit()
         except MySQLdb.Error, e:
-            if db:
-                db.rollback()
-            print "Error %d: %s" % (e.args[0],e.args[1])
+            if self.db:
+                self.db.rollback()
+            self.success = False
+            self.error = "Error %d: %s" % (e.args[0],e.args[1])
         finally:
-            if db:
-                db.close()
+            self.success = True
+        return self
+
+    def fetchone(self):
+        return self.cursor.fetchone()
+
+    def get_results_count(self):
+        return self.cursor.rowcount
+
+    def get_only_result(self):
+        if self.get_results_count() != 1:
+            raise BaseException("Waiting exactly one row")
+        return self.fetchone()
 
 
-if __name__ == '__main__':
-    db = MySQLdb.connect(host="127.0.0.1", user="root", passwd="NEWPASSWORD", db="main",use_unicode=True)
-    cur = db.cursor()
-    results = []
-    try:
-        cur.execute("INSERT INTO u_vertexes VALUE (661577530201611744, 1, '{}')")
-        db.commit()
-        for i in xrange(cur.rowcount):
-            results.append(cur.fetchone())
-    except MySQLdb.Error, e:
-        if db:
-            db.rollback()
-        print "Error %d: %s" % (e.args[0],e.args[1])
-    print results
-    db.close()
+    def was_success(self):
+        return self.success
+
+    def get_error_message(self):
+        return self.error
