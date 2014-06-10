@@ -23,9 +23,9 @@ class DBRunner(object):
             if self.db:
                 self.db.rollback()
             self.success = False
-            self.error = "Error %d: %s" % (e.args[0],e.args[1])
-        finally:
-            self.success = True
+            self.error = "Error %d: %s" % (e.args[0], e.args[1])
+            raise BaseException(self.error)
+        self.success = True
         return self
 
     def fetchone(self):
@@ -39,6 +39,12 @@ class DBRunner(object):
             raise BaseException("Waiting exactly one row")
         return self.fetchone()
 
+    def get_only_or_none_result(self):
+        if self.get_results_count() > 1:
+            raise BaseException("Waiting exactly one or zero rows")
+        if self.get_results_count() == 0:
+            return None
+        return self.get_only_result()
 
     def was_success(self):
         return self.success

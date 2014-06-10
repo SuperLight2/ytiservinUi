@@ -12,8 +12,7 @@ from core.u_type import UVertexType, UEdgeType
 
 
 class UGraphStorage(object):
-    _id_to_type = dict()
-    DBVertexesTable = 'u_vertexes'
+    DBVertexesTable = 'u_vertices'
     DBEdgesTable = 'u_edges'
 
     @classmethod
@@ -23,13 +22,16 @@ class UGraphStorage(object):
             raise BaseException("unknown type index: %d" % u_vertex_type_id)
         if not issubclass(u_vertex_type, UVertexType):
             raise BaseException(str(u_vertex_type) + " is not a UVertexType class")
-        uid = IDGenerator.generate_unique_id()
-        cls._id_to_type[uid] = u_vertex_type_id
-        return uid
+        # TODO(igumerov): use u_vertex_type_id!
+        return IDGenerator.generate_unique_id()
 
     @classmethod
     def get_vertex_type_id_by_id(cls, uid):
-        return cls._id_to_type.get(uid, None)
+        query = "SELECT utype FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
+        result = DBRunner().run(query).get_only_or_none_result()
+        if result is None:
+            return None
+        return result["utype"]
 
     @classmethod
     def u_vertex_create(cls, u_type_id):
@@ -40,26 +42,22 @@ class UGraphStorage(object):
             for key, field in u_vertex_type.get_attributes(UField.DATA).iteritems():
                 data[key] = field.field_type()
             data_json = json.dumps(data)
-            query = "INSERT INTO %s VALUE (%d, %d, '%s')" % (cls.DBVertexesTable, uid, u_type_id, data_json)
-            db = DBRunner().run(query)
-            if not db.was_success():
-                raise BaseException(db.get_error_message())
+            query = "INSERT INTO %s (`uid`, `utype`, `data`) VALUE (%d, %d, '%s')" \
+                    % (cls.DBVertexesTable, uid, u_type_id, data_json)
+            DBRunner().run(query)
             return uid
         else:
             raise BaseException(str(u_vertex_type) + " is not a UVertexType class")
 
     @classmethod
     def u_vertex_get(cls, uid):
-        query = "SELECT id, u_type, data FROM %s WHERE id=%d" % (cls.DBVertexesTable, uid)
-        results = DBRunner().run(query)
-        if not results.was_success():
-            raise BaseException(results.get_error_message())
-        if results.get_results_count() == 0:
+        query = "SELECT utype, data FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
+        row = DBRunner().run(query).get_only_or_none_result()
+        if row is None:
             return None
-        row = results.get_only_result()
         result = {
             "uid": uid,
-            "utype": int(row["u_type"]),
+            "utype": int(row["utype"]),
         }
         result.update(json.loads(row["data"]))
         return result
@@ -74,24 +72,24 @@ class UGraphStorage(object):
 
         u_type_id = cls.get_vertex_type_id_by_id(uid)
         u_vertex_type = UTypes.get(u_type_id)
-        if issubclass(u_vertex_type, UVertexType):
-            data = {}
-            for ckey, field in u_vertex_type.get_attributes(UField.DATA).iteritems():
-                value_type = field.field_type
-                if (ckey == key) and (not isinstance(value, value_type)):
-                    raise BaseException("Wrong value type for key: " + key + ". Need: " + value_type + ". Given: " + type(value))
-                data[ckey] = vertex[ckey]
-            data[key] = value
-            data_json = json.dumps(data)
-            query = "UPDATE %s SET data='%s' WHERE id=%d" % (cls.DBVertexesTable, data_json, uid)
-            return DBRunner().run(query).was_success()
-        else:
+        if not issubclass(u_vertex_type, UVertexType):
             raise BaseException("Never happens!")
+        data = {}
+        for ckey, field in u_vertex_type.get_attributes(UField.DATA).iteritems():
+            value_type = field.field_type
+            if (ckey == key) and (not isinstance(value, value_type)):
+                raise BaseException("Wrong value type for key: " + key + ". Need: " + value_type + ". Given: " + type(value))
+            data[ckey] = vertex[ckey]
+        data[key] = value
+        data_json = json.dumps(data)
+        query = "UPDATE %s SET data='%s' WHERE uid=%d" % (cls.DBVertexesTable, data_json, uid)
+        DBRunner().run(query).was_success()
+
 
     @classmethod
     def u_vertex_delete(cls, uid):
-        query = "DELETE FROM %s WHERE id=%d" % (cls.DBVertexesTable, uid)
-        return DBRunner().run(query).was_success()
+        query = "DELETE FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
+        DBRunner().run(query)
 
 
     @classmethod
