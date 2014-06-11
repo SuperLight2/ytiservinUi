@@ -28,7 +28,7 @@ class DBRunner(object):
         self.success = True
         return self
 
-    def fetchone(self):
+    def get_next(self):
         return self.cursor.fetchone()
 
     def get_results_count(self):
@@ -37,7 +37,7 @@ class DBRunner(object):
     def get_only_result(self):
         if self.get_results_count() != 1:
             raise BaseException("Waiting exactly one row")
-        return self.fetchone()
+        return self.get_next()
 
     def get_only_or_none_result(self):
         if self.get_results_count() > 1:
@@ -48,6 +48,10 @@ class DBRunner(object):
 
     def was_success(self):
         return self.success
+
+    def get_number_of_affected_rows(self):
+        #TODO: looks like it doesn't work. check and fix
+        return self.db.affected_rows()
 
     def get_error_message(self):
         return self.error

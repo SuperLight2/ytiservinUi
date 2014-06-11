@@ -31,7 +31,6 @@ class UVertexType(UType):
 
 
 class UEdgeType(UType):
-
     uid1_type = None
     uid2_type = None
     const_direction = None
