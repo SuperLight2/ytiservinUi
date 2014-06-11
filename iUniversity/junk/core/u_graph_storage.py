@@ -146,22 +146,18 @@ class UGraphStorage(object):
 
 if __name__ == '__main__':
     # TODO: impl multiget
-    # TODO: prohibit deletion if there are some edges
     # TODO: set data to vertex function should be able to deal with dictionaries
-    try:
-        user_id = UGraphStorage.u_vertex_create(UVertexTypes.USER)
-        UGraphStorage.u_vertex_set(user_id, "lastname", "Bazarov")
-        UGraphStorage.u_vertex_set(user_id, "firstname", "Ivan")
+    # TODO: specify graph operations
+    user_id = UGraphStorage.u_vertex_create(UVertexTypes.USER)
+    UGraphStorage.u_vertex_set(user_id, "lastname", "Bazarov")
+    UGraphStorage.u_vertex_set(user_id, "firstname", "Ivan")
 
-        group_id = UGraphStorage.u_vertex_create(UVertexTypes.GROUP)
-        UGraphStorage.u_vertex_set(group_id, "name", "FILMFILMFILM!!!")
+    group_id = UGraphStorage.u_vertex_create(UVertexTypes.GROUP)
+    UGraphStorage.u_vertex_set(group_id, "name", "FILMFILMFILM!!!")
 
-        print user_id, group_id
-        print UGraphStorage.u_vertex_get(user_id)
-        print UGraphStorage.u_vertex_get(group_id)
-        print UGraphStorage.u_edge_add(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
-    except BaseException, e:
-        print e
-    finally:
-        UGraphStorage.u_vertex_delete(user_id)
-        UGraphStorage.u_vertex_delete(group_id)
+    print user_id, group_id
+    print UGraphStorage.u_vertex_get(user_id)
+    print UGraphStorage.u_vertex_get(group_id)
+    print UGraphStorage.u_edge_add(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
+    #UGraphStorage.u_vertex_delete(user_id)
+    #UGraphStorage.u_vertex_delete(group_id)

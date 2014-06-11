@@ -14,5 +14,7 @@ CREATE TABLE u_edges (
     `timestamp` bigint(20) NOT NULL DEFAULT 0,
     PRIMARY KEY (`uid1`, `uid2`, `utype`),
     KEY `uid1` (`uid1`),
-    KEY `utype` (`utype`)
+    KEY `utype` (`utype`),
+    FOREIGN KEY (`uid1`) REFERENCES u_vertices(`uid`),
+    FOREIGN KEY (`uid2`) REFERENCES u_vertices(`uid`)
 );
