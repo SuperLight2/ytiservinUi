@@ -21,9 +21,3 @@ class IDGenerator(object):
             if not IDGenerator.check_existance(id):
                 IDGenerator.add_id(id)
                 return id
-
-if __name__ == '__main__':
-    for i in xrange(5):
-        id = IDGenerator.generate_unique_id()
-        print id
-    print IDGenerator.IDs
