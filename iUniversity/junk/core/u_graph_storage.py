@@ -7,8 +7,8 @@ from core.db_runner import DBRunner
 from core.id_generator import IDGenerator
 from core.u_field import UField
 from core.u_types import UTypes
-from core.u_vertex_types.u_vertex_types import UVertexTypes
-from core.u_edge_types.u_edge_types import UEdgeTypes
+from core.u_vertex_types.vertex_types import UVertexTypes
+from core.u_edge_types.edge_types import UEdgeTypes
 from core.u_type import UVertexType, UEdgeType
 
 
@@ -150,9 +150,14 @@ class UGraphStorage(object):
             "SELECT COUNT(*) AS count FROM %s WHERE uid1=%d AND utype=%d" % (cls.DBEdgesTable, uid, u_type))
         return result.get_only_result()["count"]
 
+    @classmethod
+    def can_delete_vertex(cls, uid):
+        results1 = DBRunner().run("SELECT 1 FROM %s WHERE uid1=%d LIMIT 1" % (cls.DBEdgesTable, uid))
+        results2 = DBRunner().run("SELECT 1 FROM %s WHERE uid2=%d LIMIT 1" % (cls.DBEdgesTable, uid))
+        return (results1.get_results_count() == 0) and (results2.get_results_count() == 0)
+
 
 def load_graph(config_file):
-    # TODO: specify some simple config file
     rows = DBRunner().run("SELECT uid FROM %s" % UGraphStorage.DBVertexesTable)
     while True:
         x = rows.get_next()
@@ -176,5 +181,7 @@ if __name__ == '__main__':
     print UGraphStorage.vertex_get(user_id)
     print UGraphStorage.vertex_get(group_id)
     print UGraphStorage.edge_add(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
-    #UGraphStorage.u_vertex_delete(user_id)
-    #UGraphStorage.u_vertex_delete(group_id)
+    if (not UGraphStorage.can_delete_vertex(user_id)) or (not UGraphStorage.can_delete_vertex(group_id)):
+        UGraphStorage.edge_delete(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
+    UGraphStorage.vertex_delete(user_id)
+    UGraphStorage.vertex_delete(user_id)

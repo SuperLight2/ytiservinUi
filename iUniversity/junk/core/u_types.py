@@ -1,12 +1,12 @@
 __author__ = 'gumerovif'
 
-from core.u_vertex_types.u_vertex_types import UVertexTypes
-from core.u_vertex_types.u_user import UUserType
-from core.u_vertex_types.u_group import UGroupType
-from core.u_vertex_types.u_resource import UResourceType
+from core.u_vertex_types.vertex_types import UVertexTypes
+from core.u_vertex_types.user import UUserType
+from core.u_vertex_types.group import UGroupType
+from core.u_vertex_types.resource import UResourceType
 
-from core.u_edge_types.u_edge_types import UEdgeTypes
-from core.u_edge_types.u_member_of_group import UMemberOfGroup
+from core.u_edge_types.edge_types import UEdgeTypes
+from core.u_edge_types.member_of_group import UMemberOfGroup
 
 
 class UTypes(object):

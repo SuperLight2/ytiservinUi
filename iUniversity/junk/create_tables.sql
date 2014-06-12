@@ -15,6 +15,7 @@ CREATE TABLE u_edges (
     PRIMARY KEY (`uid1`, `uid2`, `utype`),
     KEY `uid1` (`uid1`),
     KEY `utype` (`utype`),
+    KEY `uid2` (`uid2`),
     FOREIGN KEY (`uid1`) REFERENCES u_vertices(`uid`),
     FOREIGN KEY (`uid2`) REFERENCES u_vertices(`uid`)
 );
