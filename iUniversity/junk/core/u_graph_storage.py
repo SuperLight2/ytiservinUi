@@ -93,13 +93,13 @@ class UGraphStorage(object):
                     raise BaseException(
                         "Wrong value type for key: " + key + ". Need: " + value_type + ". Got: " + type(new_value))
                 data[key] = new_value
-        query = "UPDATE %s SET data='%s' WHERE uid=%d" % (cls.DBVertexesTable, json.dumps(data), uid)
+        query = "UPDATE %s SET data='%s' WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, json.dumps(data), uid)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
 
     @classmethod
     def vertex_delete(cls, uid):
         #query = "DELETE FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
-        query = "UPDATE %s SET deleted=1 WHERE uid=%d" % (cls.DBVertexesTable, uid)
+        query = "UPDATE %s SET deleted=1 WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, uid)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
 
     @classmethod
@@ -124,7 +124,7 @@ class UGraphStorage(object):
     @classmethod
     def edge_delete(cls, uid1, uid2, u_type_id):
         #query = "DELETE FROM %s WHERE uid1=%d AND uid2=%d AND utype=%d" % (cls.DBEdgesTable, uid1, uid2, u_type_id)
-        query = "UPDATE %s SET deleted=1 WHERE uid1=%d AND uid2=%d AND utype=%d"\
+        query = "UPDATE %s SET deleted=1 WHERE uid1=%d AND uid2=%d AND utype=%d AND deleted=0"\
                 % (cls.DBEdgesTable, uid1, uid2, u_type_id)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
 
@@ -160,8 +160,8 @@ class UGraphStorage(object):
     @classmethod
     def can_delete_vertex(cls, uid):
         #TODO: should use async methods here
-        results1 = DBRunner().run("SELECT 1 FROM %s WHERE uid1=%d LIMIT 1" % (cls.DBEdgesTable, uid))
-        results2 = DBRunner().run("SELECT 1 FROM %s WHERE uid2=%d LIMIT 1" % (cls.DBEdgesTable, uid))
+        results1 = DBRunner().run("SELECT 1 FROM %s WHERE uid1=%d AND deleted=0 LIMIT 1" % (cls.DBEdgesTable, uid))
+        results2 = DBRunner().run("SELECT 1 FROM %s WHERE uid2=%d AND deleted=0 LIMIT 1" % (cls.DBEdgesTable, uid))
         return (results1.get_results_count() == 0) and (results2.get_results_count() == 0)
 
 
@@ -175,8 +175,6 @@ def load_graph(config_file):
 
 
 if __name__ == '__main__':
-    # TODO: impl can_delete_vertex
-    # TODO: specify graph operations
     load_graph(None)
 
     user_id = UGraphStorage.vertex_create(UVertexTypes.USER)
@@ -202,6 +200,8 @@ if __name__ == '__main__':
 
     UGraphStorage.edge_delete(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
     assert(UGraphStorage.edge_get(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP) is None)
+    assert(UGraphStorage.can_delete_vertex(user_id))
+    assert(UGraphStorage.can_delete_vertex(group_id))
     UGraphStorage.vertex_delete(user_id)
     UGraphStorage.vertex_delete(group_id)
     assert(UGraphStorage.vertex_get(user_id) is None)
