@@ -6,6 +6,7 @@ from core.u_field import UField
 class UType(object):
     uid = UField(field_type=int, prefix="")
     utype = UField(field_type=int, prefix="")
+    deleted = UField(field_type=int, prefix="")
 
     @classmethod
     def _get_all_attributes(cls):
@@ -27,7 +28,13 @@ class UType(object):
 
 
 class UVertexType(UType):
-    pass
+    @classmethod
+    def get_data_template(cls):
+        result = {}
+        for key, field in cls.get_attributes(UField.DATA).iteritems():
+            value_type = field.get_field_type()
+            result[key] = value_type()
+        return result
 
 
 class UEdgeType(UType):

@@ -5,7 +5,7 @@ class UField(object):
     CONST = "const"
     DATA = "data"
 
-    ALLOWED_TYPES = [int, str, float, tuple, dict]
+    ALLOWED_TYPES = [int, str, float, bool]
     ALLOWED_PREFIXES = ["", "const", "data"]
 
     def __init__(self, field_type=None, prefix=DATA, const_value=None):

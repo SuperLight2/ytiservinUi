@@ -39,11 +39,8 @@ class UGraphStorage(object):
         u_vertex_type = UTypes.get(u_type_id)
         if issubclass(u_vertex_type, UVertexType):
             uid = cls.generate_new_id(u_type_id)
-            data = {}
-            for key, field in u_vertex_type.get_attributes(UField.DATA).iteritems():
-                data[key] = field.field_type()
-            data_json = json.dumps(data)
-            query = "INSERT INTO %s (`uid`, `utype`, `data`) VALUE (%d, %d, '%s')" \
+            data_json = json.dumps(u_vertex_type.get_data_template())
+            query = "INSERT INTO %s (`uid`, `utype`, `deleted`, `data`) VALUE (%d, %d, 0, '%s')" \
                     % (cls.DBVertexesTable, uid, u_type_id, data_json)
             DBRunner().run(query)
             return uid
@@ -53,10 +50,10 @@ class UGraphStorage(object):
     @classmethod
     def vertex_get(cls, *args): #args should be a list of uids
         if len(args) == 1:
-            query = "SELECT uid, utype, data FROM %s WHERE uid=%d" % (cls.DBVertexesTable, args[0])
+            query = "SELECT uid, utype, data FROM %s WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, args[0])
         else:
             uids = ", ".join(map(str, args))
-            query = "SELECT uid, utype, data FROM %s WHERE uid IN (%s)" % (cls.DBVertexesTable, uids)
+            query = "SELECT uid, utype, data FROM %s WHERE uid IN (%s) AND deleted=0" % (cls.DBVertexesTable, uids)
         rows = DBRunner().run(query)
         result = {}.fromkeys(args)
         while True:
@@ -64,11 +61,14 @@ class UGraphStorage(object):
             if row is None:
                 break
             uid = int(row['uid'])
+            u_type_id = int(row["utype"])
+            data = UTypes.get(u_type_id).get_data_template()
+            data.update(json.loads(row["data"]))
             result[uid] = {
                 "uid": uid,
                 "utype": int(row["utype"]),
             }
-            result[uid].update(json.loads(row["data"]))
+            result[uid].update(data)
         if len(args) == 1:
             result = result[args[0]]
         return result
@@ -88,21 +88,24 @@ class UGraphStorage(object):
             data[key] = vertex[key]
             if key in kwargs:
                 new_value = kwargs.get(key)
-                value_type = field.field_type
+                value_type = field.get_field_type()
                 if not isinstance(new_value, value_type):
                     raise BaseException(
                         "Wrong value type for key: " + key + ". Need: " + value_type + ". Got: " + type(new_value))
                 data[key] = new_value
         query = "UPDATE %s SET data='%s' WHERE uid=%d" % (cls.DBVertexesTable, json.dumps(data), uid)
-        DBRunner().run(query)
+        return DBRunner().run(query).get_number_of_affected_rows() == 1
 
     @classmethod
     def vertex_delete(cls, uid):
-        query = "DELETE FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
+        #query = "DELETE FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
+        query = "UPDATE %s SET deleted=1 WHERE uid=%d" % (cls.DBVertexesTable, uid)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
 
     @classmethod
     def edge_add(cls, uid1, uid2, u_type_id, info=''):
+        if uid1 == uid2:
+            raise BaseException("Self-loops are not permitted")
         u_type = UTypes.get(u_type_id)
         if issubclass(u_type, UEdgeType):
             attrs = u_type.get_attributes(UField.CONST)
@@ -112,28 +115,31 @@ class UGraphStorage(object):
                 raise BaseException("Wrong type for vertex with uid:" + uid2)
             timestamp = int(100 * time())
             return DBRunner().run(
-                "INSERT INTO %s (`uid1`, `uid2`, `utype`, `info`, `timestamp`) VALUE (%d, %d, %d, '%s', %d)"
-                % (cls.DBEdgesTable, uid1, uid2, u_type_id, info, timestamp)).get_number_of_affected_rows()
+                "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
+                "VALUE (%d, %d, %d, 0, '%s', %d)"
+                % (cls.DBEdgesTable, uid1, uid2, u_type_id, info, timestamp)).get_number_of_affected_rows() == 1
         else:
             raise BaseException("Unknown edge type: " + u_type_id)
 
     @classmethod
     def edge_delete(cls, uid1, uid2, u_type_id):
-        return DBRunner().run(
-            "DELETE FROM %s WHERE uid1=%d AND uid2=%d AND utype=%d" % (cls.DBEdgesTable, uid1, uid2, u_type_id)
-        ).get_number_of_affected_rows() == 1
+        #query = "DELETE FROM %s WHERE uid1=%d AND uid2=%d AND utype=%d" % (cls.DBEdgesTable, uid1, uid2, u_type_id)
+        query = "UPDATE %s SET deleted=1 WHERE uid1=%d AND uid2=%d AND utype=%d"\
+                % (cls.DBEdgesTable, uid1, uid2, u_type_id)
+        return DBRunner().run(query).get_number_of_affected_rows() == 1
 
     @classmethod
     def edge_get(cls, uid1, uid2, u_type):
         return DBRunner().run(
-            "SELECT info, timestamp FROM %s WHERE uid1=%d AND uid2=%d AND utype=%d"
+            "SELECT info, timestamp FROM %s WHERE uid1=%d AND uid2=%d AND utype=%d AND deleted=0"
             % (cls.DBEdgesTable, uid1, uid2, u_type)
         ).get_only_or_none_result()
 
     @classmethod
     def get_edges_by_type(cls, uid, u_type, limit=10):
         db = DBRunner().run(
-            "SELECT uid2, info, timestamp FROM %s WHERE uid1=%d AND utype=%d ORDER BY timestamp DESC LIMIT %d"
+            "SELECT uid2, info, timestamp FROM %s WHERE uid1=%d AND utype=%d AND deleted=0 "
+            "ORDER BY timestamp DESC LIMIT %d"
             % (cls.DBEdgesTable, uid, u_type, limit)
         )
         results = []
@@ -147,11 +153,13 @@ class UGraphStorage(object):
     @classmethod
     def get_edges_count(cls, uid, u_type):
         result = DBRunner().run(
-            "SELECT COUNT(*) AS count FROM %s WHERE uid1=%d AND utype=%d" % (cls.DBEdgesTable, uid, u_type))
+            "SELECT COUNT(*) AS count FROM %s WHERE uid1=%d AND utype=%d AND deleted=0"
+            % (cls.DBEdgesTable, uid, u_type))
         return result.get_only_result()["count"]
 
     @classmethod
     def can_delete_vertex(cls, uid):
+        #TODO: should use async methods here
         results1 = DBRunner().run("SELECT 1 FROM %s WHERE uid1=%d LIMIT 1" % (cls.DBEdgesTable, uid))
         results2 = DBRunner().run("SELECT 1 FROM %s WHERE uid2=%d LIMIT 1" % (cls.DBEdgesTable, uid))
         return (results1.get_results_count() == 0) and (results2.get_results_count() == 0)
@@ -173,15 +181,29 @@ if __name__ == '__main__':
 
     user_id = UGraphStorage.vertex_create(UVertexTypes.USER)
     UGraphStorage.vertex_set(user_id, lastname="Bazarov", firstname="Ivan")
+    user = UGraphStorage.vertex_get(user_id)
+    assert (user['lastname'] == "Bazarov")
+    assert (user['firstname'] == "Ivan")
 
     group_id = UGraphStorage.vertex_create(UVertexTypes.GROUP)
-    UGraphStorage.vertex_set(group_id, name="FILMFILMFILM!!!")
+    UGraphStorage.vertex_set(group_id, name="FILMFILMFILM")
+    group = UGraphStorage.vertex_get(group_id)
+    assert (group['name'] == "FILMFILMFILM")
 
-    print user_id, group_id
-    print UGraphStorage.vertex_get(user_id)
-    print UGraphStorage.vertex_get(group_id)
-    print UGraphStorage.edge_add(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
-    if (not UGraphStorage.can_delete_vertex(user_id)) or (not UGraphStorage.can_delete_vertex(group_id)):
-        UGraphStorage.edge_delete(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
+    print "UserID:", user_id
+    print "GroupID:", group_id
+    UGraphStorage.edge_add(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
+    assert(UGraphStorage.edge_get(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP) is not None)
+    assert(UGraphStorage.get_edges_count(user_id, UEdgeTypes.MEMBER_OF_GROUP) == 1)
+    edges = UGraphStorage.get_edges_by_type(user_id, UEdgeTypes.MEMBER_OF_GROUP)
+    assert (edges[0]['uid2'] == group_id)
+    assert(not UGraphStorage.can_delete_vertex(user_id))
+    assert(not UGraphStorage.can_delete_vertex(group_id))
+
+    UGraphStorage.edge_delete(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
+    assert(UGraphStorage.edge_get(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP) is None)
     UGraphStorage.vertex_delete(user_id)
-    UGraphStorage.vertex_delete(user_id)
+    UGraphStorage.vertex_delete(group_id)
+    assert(UGraphStorage.vertex_get(user_id) is None)
+    assert(UGraphStorage.vertex_get(group_id) is None)
+    print "Tests are OK!"

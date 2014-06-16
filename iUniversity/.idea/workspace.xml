@@ -26,7 +26,19 @@
       <file leaf-file-name="u_type.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="8" selection-start="438" selection-end="438" vertical-scroll-proportion="-3.9230769" vertical-offset="168" max-vertical-offset="705">
+            <state line="9" column="0" selection-start="219" selection-end="219" vertical-scroll-proportion="-5.1923075" vertical-offset="0" max-vertical-offset="810">
+              <folding>
+                <marker date="1402888104000" expanded="true" signature="794:1043" placeholder="..." />
+                <marker date="1402888104000" expanded="true" signature="843:1043" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="u_field.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_field.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="13" selection-start="613" selection-end="613" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
               <folding />
             </state>
           </provider>
@@ -43,10 +55,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="user.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/user.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="34" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="u_graph_storage.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="193" column="30" selection-start="7937" selection-end="7937" vertical-scroll-proportion="1.0" vertical-offset="2358" max-vertical-offset="3210">
+              <folding>
+                <element signature="e#26#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="create_tables.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/create_tables.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="2" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+            <state line="15" column="46" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
               <folding />
             </state>
           </provider>
@@ -57,17 +89,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state line="52" column="56" selection-start="1527" selection-end="1527" vertical-scroll-proportion="0.0" vertical-offset="438" max-vertical-offset="930">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="u_graph_storage.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="125" column="16" selection-start="5158" selection-end="5158" vertical-scroll-proportion="3.49162" vertical-offset="0" max-vertical-offset="2880">
-              <folding>
-                <element signature="e#26#37#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -88,24 +109,6 @@
               <folding>
                 <element signature="e#26#59#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resource.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/resource.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="group.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/group.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="33" selection-start="138" selection-end="160" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -161,10 +164,10 @@
         <option value="$PROJECT_DIR$/junk/core/u_types.py" />
         <option value="$PROJECT_DIR$/junk/core/u_edge_types/u_member_of_group.py" />
         <option value="$PROJECT_DIR$/junk/core/u_vertex_types/u_user.py" />
-        <option value="$PROJECT_DIR$/junk/core/u_type.py" />
-        <option value="$PROJECT_DIR$/junk/core/u_field.py" />
         <option value="$PROJECT_DIR$/junk/core/db_runner.py" />
         <option value="$PROJECT_DIR$/junk/core/id_generator.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_field.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_type.py" />
         <option value="$PROJECT_DIR$/junk/create_tables.sql" />
         <option value="$PROJECT_DIR$/junk/core/u_graph_storage.py" />
       </list>
@@ -625,7 +628,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24845488" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24103832" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24103832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24103832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -760,58 +763,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="34" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <folding>
-            <element signature="e#26#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_field.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="719" selection-end="719" vertical-scroll-proportion="-12.115385" vertical-offset="0" max-vertical-offset="465">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="8" selection-start="438" selection-end="438" vertical-scroll-proportion="-3.9230769" vertical-offset="168" max-vertical-offset="705">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="26" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
-          <folding>
-            <element signature="e#26#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/id_generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="25" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/edge_types.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/member_of_group.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="347" selection-end="347" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-          <folding>
-            <element signature="e#26#59#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -843,16 +798,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/member_of_group.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="347" selection-end="347" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <folding>
+            <element signature="e#26#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/edge_types.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_field.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="613" selection-end="613" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="26" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+          <folding>
+            <element signature="e#26#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="34" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="219" selection-end="219" vertical-scroll-proportion="-5.1923075" vertical-offset="0" max-vertical-offset="810">
+          <folding>
+            <marker date="1402888104000" expanded="true" signature="794:1043" placeholder="..." />
+            <marker date="1402888104000" expanded="true" signature="843:1043" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/junk/create_tables.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="2" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+        <state line="15" column="46" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="16" selection-start="5158" selection-end="5158" vertical-scroll-proportion="3.49162" vertical-offset="0" max-vertical-offset="2880">
+        <state line="193" column="30" selection-start="7937" selection-end="7937" vertical-scroll-proportion="1.0" vertical-offset="2358" max-vertical-offset="3210">
           <folding>
             <element signature="e#26#37#0" expanded="true" />
           </folding>
