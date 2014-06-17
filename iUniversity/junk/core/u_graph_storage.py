@@ -183,16 +183,40 @@ if __name__ == '__main__':
     assert (user['lastname'] == "Bazarov")
     assert (user['firstname'] == "Ivan")
 
+    user2_id = UGraphStorage.vertex_create(UVertexTypes.USER)
+    UGraphStorage.vertex_set(user2_id, lastname="Yakimov", firstname="Constant")
+    user2 = UGraphStorage.vertex_get(user2_id)
+    assert (user2['lastname'] == "Yakimov")
+    assert (user2['firstname'] == "Constant")
+
     group_id = UGraphStorage.vertex_create(UVertexTypes.GROUP)
     UGraphStorage.vertex_set(group_id, name="FILMFILMFILM")
     group = UGraphStorage.vertex_get(group_id)
     assert (group['name'] == "FILMFILMFILM")
 
+    resource_id = UGraphStorage.vertex_create(UVertexTypes.RESOURCE)
+    UGraphStorage.vertex_set(user_id, name="Gold")
+    resource = UGraphStorage.vertex_get(resource_id)
+    assert (resource['name'] == "Gold")
+
     print "UserID:", user_id
+    print "User2ID:", user2_id
     print "GroupID:", group_id
+    print "ResourceID:", resource_id
+
     UGraphStorage.edge_add(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP)
     assert(UGraphStorage.edge_get(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP) is not None)
     assert(UGraphStorage.get_edges_count(user_id, UEdgeTypes.MEMBER_OF_GROUP) == 1)
+
+    UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
+    assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
+    assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
+
+    UGraphStorage.edge_add(user_id, resource_id, UEdgeTypes.LIKE)
+    assert(UGraphStorage.edge_get(user_id, resource_id, UEdgeTypes.LIKE) is not None)
+    assert(UGraphStorage.edge_get(resource_id, user_id, UEdgeTypes.LIKED_BY) is not None)
+
+
     edges = UGraphStorage.get_edges_by_type(user_id, UEdgeTypes.MEMBER_OF_GROUP)
     assert (edges[0]['uid2'] == group_id)
     assert(not UGraphStorage.can_delete_vertex(user_id))
