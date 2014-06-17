@@ -40,8 +40,7 @@ class UVertexType(UType):
 class UEdgeType(UType):
     uid1_type = None
     uid2_type = None
-    const_direction = None
-    const_inverse_type = None
+    inverse_type = None
 
     uid1 = UField(field_type=int, prefix="")
     uid2 = UField(field_type=int, prefix="")

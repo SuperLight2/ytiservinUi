@@ -23,14 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="u_type.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="u_type.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="219" selection-end="219" vertical-scroll-proportion="-5.1923075" vertical-offset="0" max-vertical-offset="810">
-              <folding>
-                <marker date="1402888104000" expanded="true" signature="794:1043" placeholder="..." />
-                <marker date="1402888104000" expanded="true" signature="843:1043" placeholder="..." />
-              </folding>
+            <state line="29" column="24" selection-start="793" selection-end="793" vertical-scroll-proportion="0.39545456" vertical-offset="0" max-vertical-offset="1100">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -47,7 +44,7 @@
       <file leaf-file-name="u_types.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="26" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+            <state line="22" column="38" selection-start="809" selection-end="809" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
               <folding>
                 <element signature="e#26#83#0" expanded="true" />
               </folding>
@@ -64,17 +61,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="u_graph_storage.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="208" column="25" selection-start="8918" selection-end="8918" vertical-scroll-proportion="0.8882682" vertical-offset="2643" max-vertical-offset="3210">
-              <folding>
-                <element signature="e#26#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="create_tables.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/create_tables.sql">
           <provider selected="true" editor-type-id="text-editor">
@@ -84,19 +70,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="db_runner.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/db_runner.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="56" selection-start="1527" selection-end="1527" vertical-scroll-proportion="0.0" vertical-offset="438" max-vertical-offset="930">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="edge_types.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/edge_types.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+            <state line="7" column="16" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
               <folding />
             </state>
           </provider>
@@ -105,7 +82,7 @@
       <file leaf-file-name="member_of_group.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/member_of_group.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="347" selection-end="347" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+            <state line="5" column="51" selection-start="0" selection-end="602" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
               <folding>
                 <element signature="e#26#59#0" expanded="true" />
               </folding>
@@ -113,11 +90,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vertex_types.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/vertex_types.py">
+      <file leaf-file-name="friends.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/friends.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
-              <folding />
+            <state line="12" column="0" selection-start="0" selection-end="397" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+              <folding>
+                <element signature="e#26#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="like.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/like.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="57" selection-start="397" selection-end="397" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+              <folding>
+                <element signature="e#26#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="liked_by.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/liked_by.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="0" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+              <folding>
+                <element signature="e#26#59#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,23 +162,28 @@
         <option value="$PROJECT_DIR$/junk/core/u_edge_types.py" />
         <option value="$PROJECT_DIR$/junk/core/u_vertex_types/u_edge_types.py" />
         <option value="$PROJECT_DIR$/junk/core/u_edge_types/u_vertex_types.py" />
-        <option value="$PROJECT_DIR$/junk/core/u_types.py" />
         <option value="$PROJECT_DIR$/junk/core/u_edge_types/u_member_of_group.py" />
         <option value="$PROJECT_DIR$/junk/core/u_vertex_types/u_user.py" />
         <option value="$PROJECT_DIR$/junk/core/db_runner.py" />
         <option value="$PROJECT_DIR$/junk/core/id_generator.py" />
         <option value="$PROJECT_DIR$/junk/core/u_field.py" />
-        <option value="$PROJECT_DIR$/junk/core/u_type.py" />
         <option value="$PROJECT_DIR$/junk/create_tables.sql" />
         <option value="$PROJECT_DIR$/junk/core/u_graph_storage.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_type.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_edge_types/member_of_group.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_edge_types/friends.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_edge_types/edge_types.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_types.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_edge_types/like.py" />
+        <option value="$PROJECT_DIR$/junk/core/u_edge_types/liked_by.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="46" />
+    <option name="x" value="51" />
     <option name="y" value="22" />
-    <option name="width" value="1394" />
-    <option name="height" value="878" />
+    <option name="width" value="2509" />
+    <option name="height" value="1418" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -616,7 +622,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="46" y="22" width="1394" height="878" extended-state="6" />
+    <frame x="51" y="22" width="2509" height="1418" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -624,11 +630,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880098" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13870068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24845488" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24103832" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24103832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14455152" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -798,22 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/member_of_group.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="347" selection-end="347" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-          <folding>
-            <element signature="e#26#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/edge_types.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_field.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="13" selection-start="613" selection-end="613" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
@@ -821,29 +811,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="26" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
-          <folding>
-            <element signature="e#26#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_vertex_types/user.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="34" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="219" selection-end="219" vertical-scroll-proportion="-5.1923075" vertical-offset="0" max-vertical-offset="810">
-          <folding>
-            <marker date="1402888104000" expanded="true" signature="794:1043" placeholder="..." />
-            <marker date="1402888104000" expanded="true" signature="843:1043" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -856,10 +827,69 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/junk/core/u_graph_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="208" column="25" selection-start="8918" selection-end="8918" vertical-scroll-proportion="0.8882682" vertical-offset="2643" max-vertical-offset="3210">
+        <state line="160" column="36" selection-start="6736" selection-end="6736" vertical-scroll-proportion="-35.192307" vertical-offset="1485" max-vertical-offset="3210">
           <folding>
             <element signature="e#26#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/member_of_group.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="51" selection-start="0" selection-end="602" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+          <folding>
+            <element signature="e#26#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/edge_types.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="16" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/friends.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="0" selection-end="397" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding>
+            <element signature="e#26#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/like.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="57" selection-start="397" selection-end="397" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding>
+            <element signature="e#26#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_edge_types/liked_by.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding>
+            <element signature="e#26#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_types.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="38" selection-start="809" selection-end="809" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+          <folding>
+            <element signature="e#26#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/junk/core/u_type.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="24" selection-start="793" selection-end="793" vertical-scroll-proportion="0.39545456" vertical-offset="0" max-vertical-offset="1100">
+          <folding />
         </state>
       </provider>
     </entry>
