@@ -65,8 +65,11 @@ class DBRunner(object):
         return self.success
 
     def get_number_of_affected_rows(self):
-        #TODO: looks like it doesn't work. check and fix
-        return self.db.affected_rows()
+        #return self.db.affected_rows()
+        return self.cursor.rowcount
 
     def get_error_message(self):
         return self.error
+
+if __name__ == '__main__':
+    print DBRunner().run("INSERT INTO tmp VALUE (1, 'one')").get_number_of_affected_rows()
