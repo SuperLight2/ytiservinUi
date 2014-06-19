@@ -28,6 +28,21 @@ class DBRunner(object):
         self.success = True
         return self
 
+    def run_full_transaction(self, queries):
+        try:
+            self.cursor = self.db.cursor()
+            for query in queries:
+                self.cursor.execute(query)
+            self.db.commit()
+        except MySQLdb.Error, e:
+            if self.db:
+                self.db.rollback()
+            self.success = False
+            self.error = "Error %d: %s" % (e.args[0], e.args[1])
+            raise BaseException(self.error)
+        self.success = True
+        return self
+
     def get_next(self):
         return self.cursor.fetchone()
 

@@ -9,7 +9,7 @@ from core.u_edge_types.edge_types import UEdgeTypes
 class UMemberOfGroup(UEdgeType):
     uid1_type = UField(const_value=UVertexTypes.USER)
     uid2_type = UField(const_value=UVertexTypes.GROUP)
-    inverse_type = UField(const_value=None)
+    inverse_type = UField(const_value=UEdgeTypes.NONE_EDGE)
 
 
 if __name__ == '__main__':

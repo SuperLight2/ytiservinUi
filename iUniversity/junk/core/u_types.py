@@ -21,6 +21,7 @@ class UTypes(object):
         UEdgeTypes.FRIENDS: UFriends,
         UEdgeTypes.LIKE: ULike,
         UEdgeTypes.LIKED_BY: ULikedBy,
+        UEdgeTypes.NONE_EDGE: None,
     }
 
     @classmethod

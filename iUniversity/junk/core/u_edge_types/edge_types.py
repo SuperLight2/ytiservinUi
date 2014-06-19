@@ -6,4 +6,5 @@ class UEdgeTypes(object):
     FRIENDS = 5
     LIKE = 6
     LIKED_BY = 7
+    NONE_EDGE = 8
 
