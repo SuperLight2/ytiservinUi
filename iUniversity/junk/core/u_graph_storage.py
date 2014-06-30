@@ -261,9 +261,9 @@ if __name__ == '__main__':
     assert(UGraphStorage.can_delete_vertex(user_id))
     assert(UGraphStorage.can_delete_vertex(group_id))
 
-    #UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
-    #assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
-    #assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
+    UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
+    assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
+    assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
 
     UGraphStorage.edge_delete(user_id, user2_id, UEdgeTypes.FRIENDS)
     assert(UGraphStorage.can_delete_vertex(user_id))
@@ -272,4 +272,4 @@ if __name__ == '__main__':
     UGraphStorage.vertex_delete(group_id)
     assert(UGraphStorage.vertex_get(user_id) is None)
     assert(UGraphStorage.vertex_get(group_id) is None)
-    print "Tests are OK!"
+    print "Tests OK!"

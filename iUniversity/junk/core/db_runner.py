@@ -72,4 +72,5 @@ class DBRunner(object):
         return self.error
 
 if __name__ == '__main__':
-    print DBRunner().run("INSERT INTO tmp VALUE (1, 'one')").get_number_of_affected_rows()
+    assert(DBRunner().run("INSERT INTO tmp VALUE (1, 'one')").get_number_of_affected_rows() == 1)
+    print "Tests OK!"
