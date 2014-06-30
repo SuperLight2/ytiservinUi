@@ -4,9 +4,9 @@ from core.u_field import UField
 
 
 class UType(object):
-    uid = UField(field_type=int, prefix="")
-    utype = UField(field_type=int, prefix="")
-    deleted = UField(field_type=int, prefix="")
+    uid = UField.RequiredInteger()
+    utype = UField.RequiredInteger()
+    deleted = UField.RequiredInteger()
 
     @classmethod
     def _get_all_attributes(cls):
@@ -17,7 +17,7 @@ class UType(object):
                 yield attr_name, attr
 
     @classmethod
-    def get_attributes(cls, prefix=""):
+    def _get_attributes(cls, prefix=""):
         result = {}
         for attr_name, attr in cls._get_all_attributes():
             if not isinstance(attr, UField):
@@ -26,12 +26,20 @@ class UType(object):
                 result[attr_name] = attr
         return result
 
+    @classmethod
+    def get_const_attributes(cls):
+        return cls._get_attributes(UField.CONST)
+
+    @classmethod
+    def get_data_attributes(cls):
+        return cls._get_attributes(UField.DATA)
+
 
 class UVertexType(UType):
     @classmethod
     def get_data_template(cls):
         result = {}
-        for key, field in cls.get_attributes(UField.DATA).iteritems():
+        for key, field in cls.get_data_attributes().iteritems():
             value_type = field.get_field_type()
             result[key] = value_type()
         return result
@@ -42,7 +50,7 @@ class UEdgeType(UType):
     uid2_type = None
     inverse_type = None
 
-    uid1 = UField(field_type=int, prefix="")
-    uid2 = UField(field_type=int, prefix="")
-    timestamp = UField(field_type=int, prefix="")
-    info = UField(field_type=str, prefix="")
+    uid1 = UField.RequiredInteger()
+    uid2 = UField.RequiredInteger()
+    timestamp = UField.RequiredInteger()
+    info = UField.RequiredString()

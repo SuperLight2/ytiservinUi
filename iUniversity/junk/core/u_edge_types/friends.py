@@ -7,6 +7,6 @@ from core.u_edge_types.edge_types import UEdgeTypes
 
 
 class UFriends(UEdgeType):
-    uid1_type = UField(const_value=UVertexTypes.USER)
-    uid2_type = UField(const_value=UVertexTypes.USER)
-    inverse_type = UField(const_value=UEdgeTypes.FRIENDS)
+    uid1_type = UField.Constant(UVertexTypes.USER)
+    uid2_type = UField.Constant(UVertexTypes.USER)
+    inverse_type = UField.Constant(UEdgeTypes.FRIENDS)

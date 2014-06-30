@@ -7,12 +7,11 @@ from core.u_edge_types.edge_types import UEdgeTypes
 
 
 class UMemberOfGroup(UEdgeType):
-    uid1_type = UField(const_value=UVertexTypes.USER)
-    uid2_type = UField(const_value=UVertexTypes.GROUP)
-    inverse_type = UField(const_value=UEdgeTypes.NONE_EDGE)
+    uid1_type = UField.Constant(UVertexTypes.USER)
+    uid2_type = UField.Constant(UVertexTypes.GROUP)
+    inverse_type = UField.Constant(UEdgeTypes.NONE_EDGE)
 
 
 if __name__ == '__main__':
-    print UMemberOfGroup.get_attributes()
-    print [(f, v.const_value) for f, v in UMemberOfGroup.get_attributes("const").iteritems()]
-    print UMemberOfGroup.get_attributes("data")
+    print [(f, v.const_value) for f, v in UMemberOfGroup.get_const_attributes().iteritems()]
+    print UMemberOfGroup.get_data_attributes()

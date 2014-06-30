@@ -5,4 +5,4 @@ from core.u_field import UField
 
 
 class UResourceType(UVertexType):
-    name = UField(field_type=str)
+    name = UField.String()

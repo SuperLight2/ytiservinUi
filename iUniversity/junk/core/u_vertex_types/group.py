@@ -5,5 +5,5 @@ from core.u_field import UField
 
 
 class UGroupType(UVertexType):
-    name = UField(field_type=str)
-    description = UField(field_type=str)
+    name = UField.String()
+    description = UField.String()

@@ -5,12 +5,11 @@ from core.u_field import UField
 
 
 class UUserType(UVertexType):
-    lastname = UField(field_type=str)
-    firstname = UField(field_type=str)
-    gender = UField(field_type=int)
+    lastname = UField.String()
+    firstname = UField.String()
+    gender = UField.Integer()
 
 
 if __name__ == '__main__':
-    print UUserType.get_attributes()
-    print [(f, v.const_value) for f, v in UUserType.get_attributes("const").iteritems()]
-    print UUserType.get_attributes("data")
+    print [(f, v.const_value) for f, v in UUserType.get_const_attributes().iteritems()]
+    print UUserType.get_data_attributes()

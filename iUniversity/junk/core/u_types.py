@@ -26,7 +26,7 @@ class UTypes(object):
 
     @classmethod
     def get(cls, u_type_index):
-        return cls.MAPPING.get(u_type_index, None)
+        return cls.MAPPING[u_type_index]
 
 
 if __name__ == '__main__':

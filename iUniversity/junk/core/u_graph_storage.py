@@ -5,7 +5,6 @@ from time import time
 
 from core.db_runner import DBRunner
 from core.id_generator import IDGenerator
-from core.u_field import UField
 from core.u_types import UTypes
 from core.u_vertex_types.vertex_types import UVertexTypes
 from core.u_edge_types.edge_types import UEdgeTypes
@@ -84,7 +83,7 @@ class UGraphStorage(object):
         if not issubclass(u_vertex_type, UVertexType):
             raise BaseException("Never happens!")
         data = {}
-        for key, field in u_vertex_type.get_attributes(UField.DATA).iteritems():
+        for key, field in u_vertex_type.get_data_attributes().iteritems():
             data[key] = vertex[key]
             if key in kwargs:
                 new_value = kwargs.get(key)
@@ -108,7 +107,7 @@ class UGraphStorage(object):
             raise BaseException("Self-loops are not permitted")
         u_type = UTypes.get(u_type_id)
         if issubclass(u_type, UEdgeType):
-            attrs = u_type.get_attributes(UField.CONST)
+            attrs = u_type.get_const_attributes()
             if attrs['uid1_type'].const_value != cls.get_vertex_type_id_by_id(uid1):
                 raise BaseException("Wrong type for vertex with uid:" + uid1)
             if attrs['uid2_type'].const_value != cls.get_vertex_type_id_by_id(uid2):
@@ -125,7 +124,7 @@ class UGraphStorage(object):
             u_inverse_type = UTypes.get(u_inverse_type_id)
             if u_inverse_type is not None:
                 if issubclass(u_inverse_type, UEdgeType):
-                    inverse_attrs = u_inverse_type.get_attributes(UField.CONST)
+                    inverse_attrs = u_inverse_type.get_const_attributes()
                     u_inverse_inverse_type_id = inverse_attrs['inverse_type'].const_value
                     if u_inverse_inverse_type_id != u_type_id:
                         raise BaseException("Inconsistent exception. Check edges with utypes: %d, %d."
@@ -152,7 +151,7 @@ class UGraphStorage(object):
             % (cls.DBEdgesTable, uid1, uid2, u_type_id)
         ]
         u_type = UTypes.get(u_type_id)
-        attrs = u_type.get_attributes(UField.CONST)
+        attrs = u_type.get_const_attributes()
         u_inverse_type_id = attrs['inverse_type'].const_value
         u_inverse_type = UTypes.get(u_inverse_type_id)
         if u_inverse_type is not None:
@@ -261,6 +260,14 @@ if __name__ == '__main__':
     assert(UGraphStorage.edge_get(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP) is None)
     assert(UGraphStorage.can_delete_vertex(user_id))
     assert(UGraphStorage.can_delete_vertex(group_id))
+
+    #UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
+    #assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
+    #assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
+
+    UGraphStorage.edge_delete(user_id, user2_id, UEdgeTypes.FRIENDS)
+    assert(UGraphStorage.can_delete_vertex(user_id))
+
     UGraphStorage.vertex_delete(user_id)
     UGraphStorage.vertex_delete(group_id)
     assert(UGraphStorage.vertex_get(user_id) is None)
