@@ -4,9 +4,7 @@ from core.u_field import UField
 
 
 class UType(object):
-    uid = UField.RequiredInteger()
-    utype = UField.RequiredInteger()
-    deleted = UField.RequiredInteger()
+    _db_table_name = None
 
     @classmethod
     def _get_all_attributes(cls):
@@ -17,25 +15,46 @@ class UType(object):
                 yield attr_name, attr
 
     @classmethod
-    def _get_attributes(cls, prefix=""):
+    def _get_attributes(cls, field_class):
         result = {}
         for attr_name, attr in cls._get_all_attributes():
             if not isinstance(attr, UField):
                 continue
-            if attr.prefix == prefix:
+            if attr.get_field_class() == field_class:
                 result[attr_name] = attr
         return result
 
     @classmethod
     def get_const_attributes(cls):
-        return cls._get_attributes(UField.CONST)
+        return cls._get_attributes(UField.CONST_FIELD)
 
     @classmethod
     def get_data_attributes(cls):
-        return cls._get_attributes(UField.DATA)
+        return cls._get_attributes(UField.DATA_FIELD)
+
+    @classmethod
+    def get_db_table_name(cls):
+        return cls._db_table_name
+
+    @classmethod
+    def get_table_creation_sql(cls):
+        cls.validate()
+        raise BaseException("Not implemented exception")
+
+    @classmethod
+    def validate(cls):
+        for name, attr in cls._get_attributes(UField.VIRTUAL_FIELD).iteritems():
+            if attr.is_virtual():
+                raise BaseException("Virtual field are not allowed: %s" % name)
 
 
 class UVertexType(UType):
+    _db_table_name = 'u_vertices'
+
+    uid = UField.RequiredInteger()
+    utype = UField.RequiredInteger()
+    deleted = UField.RequiredInteger()
+
     @classmethod
     def get_data_template(cls):
         result = {}
@@ -46,11 +65,21 @@ class UVertexType(UType):
 
 
 class UEdgeType(UType):
-    uid1_type = None
-    uid2_type = None
-    inverse_type = None
+    _db_table_name = 'u_edges'
+
+    uid1_type = UField.Virtual()
+    uid2_type = UField.Virtual()
+    inverse_type = UField.Virtual()
 
     uid1 = UField.RequiredInteger()
     uid2 = UField.RequiredInteger()
     timestamp = UField.RequiredInteger()
     info = UField.RequiredString()
+    deleted = UField.RequiredInteger()
+
+
+if __name__ == '__main__':
+    UVertexType.validate()
+    #UEdgeType.validate() # must raise an exception!
+    print UVertexType.get_db_table_name()
+    print UEdgeType.get_db_table_name()

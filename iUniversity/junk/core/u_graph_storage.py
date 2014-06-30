@@ -97,7 +97,6 @@ class UGraphStorage(object):
 
     @classmethod
     def vertex_delete(cls, uid):
-        #query = "DELETE FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
         query = "UPDATE %s SET deleted=1 WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, uid)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
 

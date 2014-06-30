@@ -1,6 +1,6 @@
 CREATE TABLE u_vertices (
     `uid` bigint(20) NOT NULL DEFAULT 0,
-    `utype`int(11) NOT NULL DEFAULT 0,
+    `utype` int(11) NOT NULL DEFAULT 0,
     `deleted` boolean NOT NULL DEFAULT 0,
     `data` text NOT NULL,
     PRIMARY KEY (`uid`),
