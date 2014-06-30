@@ -39,7 +39,11 @@ class UType(object):
     @classmethod
     def get_table_creation_sql(cls):
         cls.validate()
-        raise BaseException("Not implemented exception")
+        result = "CREATE TABLE %s (\n" % cls.get_db_table_name()
+        for name, field in cls._get_attributes(UField.REQUIRED_FIELD).iteritems():
+            result += "  %s %s,\n" % (name, field.get_sql_field_type())
+        result += ")"
+        raise BaseException("Wrong implementation")
 
     @classmethod
     def validate(cls):
@@ -52,8 +56,8 @@ class UVertexType(UType):
     _db_table_name = 'u_vertices'
 
     uid = UField.RequiredInteger()
-    utype = UField.RequiredInteger()
-    deleted = UField.RequiredInteger()
+    utype = UField.RequiredShortInteger()
+    deleted = UField.RequiredBoolean()
 
     @classmethod
     def get_data_template(cls):
@@ -75,7 +79,7 @@ class UEdgeType(UType):
     uid2 = UField.RequiredInteger()
     timestamp = UField.RequiredInteger()
     info = UField.RequiredString()
-    deleted = UField.RequiredInteger()
+    deleted = UField.RequiredBoolean()
 
 
 if __name__ == '__main__':

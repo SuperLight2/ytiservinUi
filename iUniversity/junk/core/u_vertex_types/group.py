@@ -6,4 +6,4 @@ from core.u_field import UField
 
 class UGroupType(UVertexType):
     name = UField.String()
-    description = UField.String()
+    description = UField.Text()

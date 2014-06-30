@@ -7,33 +7,37 @@ class UField(object):
     REQUIRED_FIELD = "required"
     VIRTUAL_FIELD = "virtual"
 
-    INTEGER = int
-    STRING = str
-    FLOAT = float
-    BOOLEAN = bool
+    SHORT_INTEGER = (int, 'int(11) NOT NULL DEFAULT 0')
+    INTEGER = (int, 'bigint(20) NOT NULL DEFAULT 0')
+    STRING = (str, 'varchar(255) NOT NULL DEFAULT \'\'')
+    TEXT = (str, 'text NOT NULL DEFAULT \'\'')
+    BOOLEAN = (bool, 'boolean NOT NULL DEFAULT 0')
 
-    ALLOWED_TYPES = [INTEGER, STRING, FLOAT, BOOLEAN]
-    ALLOWED_CLASSES = [REQUIRED_FIELD, CONST_FIELD, DATA_FIELD, VIRTUAL_FIELD]
-
-    def __init__(self, field_type=None, field_class=DATA_FIELD, const_value=None):
-        self.const_value = const_value
-        if self.const_value is None:
-            if field_type not in self.ALLOWED_TYPES:
-                raise BaseException("Field {0} has not allowed type".format(field_type))
-            if field_class not in self.ALLOWED_CLASSES:
-                raise BaseException("Class {0} is not allowed".format(field_class))
-        else:
-            field_class = self.CONST_FIELD
-        self.field_type = field_type
+    def __init__(self, field_class=DATA_FIELD, field_type=None, const_value=None):
         self.field_class = field_class
+        if field_class == UField.VIRTUAL_FIELD:
+            return
+        if field_class == UField.CONST_FIELD:
+            self.const_value = const_value
+        if (field_class == UField.DATA_FIELD) or (field_class == UField.REQUIRED_FIELD):
+            self.field_type, self.sql_field_type = field_type
+        raise BaseException("Class {0} is not allowed".format(field_class))
 
     @classmethod
     def RequiredInteger(cls):
         return UField(field_type=UField.INTEGER, field_class=UField.REQUIRED_FIELD)
 
     @classmethod
+    def RequiredShortInteger(cls):
+        return UField(field_type=UField.SHORT_INTEGER, field_class=UField.REQUIRED_FIELD)
+
+    @classmethod
     def RequiredString(cls):
         return UField(field_type=UField.STRING, field_class=UField.REQUIRED_FIELD)
+
+    @classmethod
+    def RequiredBoolean(cls):
+        return UField(field_type=UField.BOOLEAN, field_class=UField.REQUIRED_FIELD)
 
     @classmethod
     def Constant(cls, const_value):
@@ -41,18 +45,29 @@ class UField(object):
 
     @classmethod
     def Virtual(cls):
-        return UField(field_class=UField.VIRTUAL_FIELD, field_type=UField.INTEGER)
+        return UField(field_class=UField.VIRTUAL_FIELD)
 
     @classmethod
     def Integer(cls):
         return UField(field_type=UField.INTEGER, field_class=UField.DATA_FIELD)
 
     @classmethod
+    def ShortInteger(cls):
+        return UField(field_type=UField.SHORT_INTEGER, field_class=UField.DATA_FIELD)
+
+    @classmethod
     def String(cls):
         return UField(field_type=UField.STRING, field_class=UField.DATA_FIELD)
 
+    @classmethod
+    def Text(cls):
+        return UField(field_type=UField.TEXT, field_class=UField.DATA_FIELD)
+
     def get_field_type(self):
         return self.field_type
+
+    def get_sql_field_type(self):
+        return self.sql_field_type
 
     def get_field_class(self):
         return self.field_class
