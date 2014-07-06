@@ -21,14 +21,13 @@ class UTypes(object):
         UEdgeTypes.FRIENDS: UFriends,
         UEdgeTypes.LIKE: ULike,
         UEdgeTypes.LIKED_BY: ULikedBy,
-        UEdgeTypes.NONE_EDGE: None,
     }
 
     @classmethod
-    def get(cls, u_type_index):
-        return cls.MAPPING[u_type_index]
+    def get(cls, u_type_id):
+        return cls.MAPPING[u_type_id]
 
 
 if __name__ == '__main__':
-    print UTypes.get(UVertexTypes.USER)
-    print UTypes.get(UEdgeTypes.MEMBER_OF_GROUP)
+    for utype_id, utype in UTypes.MAPPING.iteritems():
+        utype.validate()

@@ -17,11 +17,12 @@ class UField(object):
         self.field_class = field_class
         if field_class == UField.VIRTUAL_FIELD:
             return
-        if field_class == UField.CONST_FIELD:
+        elif field_class == UField.CONST_FIELD:
             self.const_value = const_value
-        if (field_class == UField.DATA_FIELD) or (field_class == UField.REQUIRED_FIELD):
+        elif (field_class == UField.DATA_FIELD) or (field_class == UField.REQUIRED_FIELD):
             self.field_type, self.sql_field_type = field_type
-        raise BaseException("Class {0} is not allowed".format(field_class))
+        else:
+            raise BaseException("Class {0} is not allowed".format(field_class))
 
     @classmethod
     def RequiredInteger(cls):
@@ -41,7 +42,7 @@ class UField(object):
 
     @classmethod
     def Constant(cls, const_value):
-        return UField(const_value=const_value)
+        return UField(field_class=UField.CONST_FIELD, const_value=const_value)
 
     @classmethod
     def Virtual(cls):
