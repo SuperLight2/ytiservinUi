@@ -51,14 +51,6 @@ class UType(object):
             if attr.is_virtual():
                 raise BaseException("Virtual field are not allowed: %s" % name)
 
-
-class UVertexType(UType):
-    _db_table_name = 'u_vertices'
-
-    uid = UField.RequiredInteger()
-    utype = UField.RequiredShortInteger()
-    deleted = UField.RequiredBoolean()
-
     @classmethod
     def get_data_template(cls):
         result = {}
@@ -66,6 +58,14 @@ class UVertexType(UType):
             value_type = field.get_field_type()
             result[key] = value_type()
         return result
+
+
+class UVertexType(UType):
+    _db_table_name = 'u_vertices'
+
+    uid = UField.RequiredInteger()
+    utype = UField.RequiredShortInteger()
+    deleted = UField.RequiredBoolean()
 
 
 class UEdgeType(UType):

@@ -65,7 +65,6 @@ class DBRunner(object):
         return self.success
 
     def get_number_of_affected_rows(self):
-        #return self.db.affected_rows()
         return self.cursor.rowcount
 
     def get_error_message(self):
