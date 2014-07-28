@@ -8,7 +8,6 @@ from core.id_generator import IDGenerator
 from core.u_types import UTypes
 from core.u_vertex_types.vertex_types import UVertexTypes
 from core.u_edge_types.edge_types import UEdgeTypes
-from core.u_type import UVertexType, UEdgeType
 
 
 class UGraphStorage(object):
@@ -16,13 +15,13 @@ class UGraphStorage(object):
     DBEdgesTable = 'u_edges'
 
     @classmethod
-    def generate_new_id(cls, u_vertex_type_id):
+    def _generate_new_id(cls, u_vertex_type_id):
         u_vertex_type = UTypes.get_vertex_type(u_vertex_type_id)
         # TODO(igumerov): use u_vertex_type_id!
         return IDGenerator.generate_unique_id()
 
     @classmethod
-    def get_vertex_type_id_by_id(cls, uid):
+    def _get_vertex_type_id_by_uid(cls, uid):
         query = "SELECT utype FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
         result = DBRunner().run(query).get_only_or_none_result()
         if result is None:
@@ -31,16 +30,11 @@ class UGraphStorage(object):
 
     @classmethod
     def vertex_create(cls, u_type_id):
-        u_vertex_type = UTypes.get_vertex_type(u_type_id)
-        if issubclass(u_vertex_type, UVertexType):
-            uid = cls.generate_new_id(u_type_id)
-            data_json = json.dumps(u_vertex_type.get_data_template())
-            query = "INSERT INTO %s (`uid`, `utype`, `deleted`, `data`) VALUE (%d, %d, 0, '%s')" \
-                    % (cls.DBVertexesTable, uid, u_type_id, data_json)
-            DBRunner().run(query)
-            return uid
-        else:
-            raise BaseException(str(u_vertex_type) + " is not a UVertexType class")
+        uid = cls._generate_new_id(u_type_id)
+        query = "INSERT INTO %s (`uid`, `utype`, `deleted`, `data`) VALUE (%d, %d, 0, '%s')" \
+                % (cls.DBVertexesTable, uid, u_type_id, json.dumps({}))
+        DBRunner().run(query)
+        return uid
 
     @classmethod
     def vertex_get(cls, *args): #args should be a list of uids
@@ -55,7 +49,7 @@ class UGraphStorage(object):
             row = rows.get_next()
             if row is None:
                 break
-            uid = int(row['uid'])
+            uid = int(row["uid"])
             u_type_id = int(row["utype"])
             data = UTypes.get_vertex_type(u_type_id).get_data_template()
             data.update(json.loads(row["data"]))
@@ -74,10 +68,8 @@ class UGraphStorage(object):
         if vertex is None:
             raise BaseException("Unknown uid: " + uid)
 
-        u_type_id = cls.get_vertex_type_id_by_id(uid)
+        u_type_id = cls._get_vertex_type_id_by_uid(uid)
         u_vertex_type = UTypes.get_vertex_type(u_type_id)
-        if not issubclass(u_vertex_type, UVertexType):
-            raise BaseException("Never happens!")
         data = {}
         for key, field in u_vertex_type.get_data_attributes().iteritems():
             data[key] = vertex[key]
@@ -101,43 +93,37 @@ class UGraphStorage(object):
         if uid1 == uid2:
             raise BaseException("Self-loops are not permitted")
         u_type = UTypes.get_edge_type(u_type_id)
-        if issubclass(u_type, UEdgeType):
-            attrs = u_type.get_const_attributes()
-            if attrs['uid1_type'].const_value != cls.get_vertex_type_id_by_id(uid1):
-                raise BaseException("Wrong type for vertex with uid:" + uid1)
-            if attrs['uid2_type'].const_value != cls.get_vertex_type_id_by_id(uid2):
-                raise BaseException("Wrong type for vertex with uid:" + uid2)
+        attrs = u_type.get_const_attributes()
+        if attrs['uid1_type'] != cls._get_vertex_type_id_by_uid(uid1):
+            raise BaseException("Wrong type for vertex with uid:" + uid1)
+        if attrs['uid2_type'] != cls._get_vertex_type_id_by_uid(uid2):
+            raise BaseException("Wrong type for vertex with uid:" + uid2)
 
-            timestamp = int(100 * time())
-            queries = [
+        timestamp = int(100 * time())
+        queries = [
+            "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
+            "VALUE (%d, %d, %d, 0, '%s', %d)"
+            % (cls.DBEdgesTable, uid1, uid2, u_type_id, info, timestamp)
+        ]
+
+        u_inverse_type_id = attrs['inverse_type']
+        if u_inverse_type_id is not None:
+            u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
+            inverse_attrs = u_inverse_type.get_const_attributes()
+            u_inverse_inverse_type_id = inverse_attrs['inverse_type']
+            if u_inverse_inverse_type_id != u_type_id:
+                raise BaseException("Inconsistent exception. Check edges with utypes: %d, %d."
+                                    % (u_type_id, u_inverse_type_id))
+            if inverse_attrs['uid2_type'] != cls._get_vertex_type_id_by_uid(uid1):
+                raise BaseException("Wrong type for vertex with uid:" + uid1)
+            if inverse_attrs['uid1_type'] != cls._get_vertex_type_id_by_uid(uid2):
+                raise BaseException("Wrong type for vertex with uid:" + uid2)
+            queries.append(
                 "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
                 "VALUE (%d, %d, %d, 0, '%s', %d)"
-                % (cls.DBEdgesTable, uid1, uid2, u_type_id, info, timestamp)
-            ]
-
-            u_inverse_type_id = attrs['inverse_type'].const_value
-            if u_inverse_type_id is not None:
-                u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
-                if issubclass(u_inverse_type, UEdgeType):
-                    inverse_attrs = u_inverse_type.get_const_attributes()
-                    u_inverse_inverse_type_id = inverse_attrs['inverse_type'].const_value
-                    if u_inverse_inverse_type_id != u_type_id:
-                        raise BaseException("Inconsistent exception. Check edges with utypes: %d, %d."
-                                            % (u_type_id, u_inverse_type_id))
-                    if inverse_attrs['uid2_type'].const_value != cls.get_vertex_type_id_by_id(uid1):
-                        raise BaseException("Wrong type for vertex with uid:" + uid1)
-                    if inverse_attrs['uid1_type'].const_value != cls.get_vertex_type_id_by_id(uid2):
-                        raise BaseException("Wrong type for vertex with uid:" + uid2)
-                    queries.append(
-                        "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
-                        "VALUE (%d, %d, %d, 0, '%s', %d)"
-                        % (cls.DBEdgesTable, uid2, uid1, u_inverse_type_id, info, timestamp)
-                    )
-                else:
-                    raise BaseException("Unknown inverse edge type: " + u_inverse_type_id)
-            return DBRunner().run_full_transaction(queries).was_success()
-        else:
-            raise BaseException("Unknown edge type: " + u_type_id)
+                % (cls.DBEdgesTable, uid2, uid1, u_inverse_type_id, info, timestamp)
+            )
+        return DBRunner().run_full_transaction(queries).was_success()
 
     @classmethod
     def edge_delete(cls, uid1, uid2, u_type_id):
@@ -147,7 +133,7 @@ class UGraphStorage(object):
         ]
         u_type = UTypes.get_edge_type(u_type_id)
         attrs = u_type.get_const_attributes()
-        u_inverse_type_id = attrs['inverse_type'].const_value
+        u_inverse_type_id = attrs['inverse_type']
         u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
         if u_inverse_type is not None:
             queries.append(

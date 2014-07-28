@@ -13,18 +13,14 @@ class UField(object):
     BOOLEAN = (bool, 'boolean NOT NULL DEFAULT 0')
 
     def __init__(self, field_class=DATA_FIELD, field_type=None, const_value=None, nullable=True):
-        self._value = None
-        self._initialized = False
         self._field_class = field_class
-        self.nullable = nullable
         if field_class == UField.VIRTUAL_FIELD:
             pass
         elif field_class == UField.CONST_FIELD:
-            self._value, self._initialized = const_value, True
+            self._const_value = const_value
         elif field_class == UField.DATA_FIELD:
             self._field_type, self._sql_field_type = field_type
-            if nullable:
-                self._value, self._initialized = None, True
+            self.nullable = nullable
         else:
             raise BaseException("Unknown class {0}".format(field_class))
 
@@ -80,71 +76,45 @@ class UField(object):
     def is_data_field(self):
         return self._field_class == UField.DATA_FIELD
 
-    def is_initialized(self):
-        return self._initialized
-
-    def set_value(self, value):
+    def check_value(self, value):
         if self.is_virtual():
             raise BaseException("This field is virtual, can't set the value")
         if self.is_constant():
             raise BaseException("This field is constant, can't edit the value")
-        if (self.is_nullable()) and (value is None):
-            self._initialized, self._value = True, value
-            return
+        if (not self.is_nullable()) and (value is None):
+            raise BaseException("This value can't be null")
         if not isinstance(value, self._field_type):
             raise BaseException("Wrong type, expected " + str(self._field_type) + ", got " + str(type(value)))
-        self._initialized, self._value = True, value
 
-    def get_value(self):
-        if self.is_virtual():
-            raise BaseException("This field is virtual, can't return the value")
-        if not self.is_initialized():
-            raise BaseException("The value is not inited")
-        return self._value
-
-    def validate(self):
-        if self.is_virtual():
-            raise BaseException("Virtual field is not allowed: %s")
-        if not self.is_initialized():
-            raise BaseException("Value is not initialized")
+    def get_const_value(self):
+        if not self.is_constant():
+            raise BaseException("This field is not constant!")
+        return self._const_value
 
 
 if __name__ == '__main__':
     # TESTS TESTS TESTS
-    f = UField.Constant(3)
-    print f.get_value()
+    f = UField.Constant("tests")
     try:
-        f.set_value(5)
+        f.check_value(None)
     except BaseException, e:
         print e
-    f.validate()
+    print f.get_const_value()
 
     f = UField.RequiredInteger()
     try:
-        print f.get_value()
+        f.check_value(None)
     except BaseException, e:
         print e
-    f.set_value(5)
-    print f.get_value()
-    f.validate()
+    f.check_value(5)
 
-    f = UField.Integer()
     try:
-        print f.get_value()
+        f.check_value("1223")
     except BaseException, e:
         print e
+
+    f = UField.Virtual()
     try:
-        f.set_value("1223")
-        print f.get_value()
+        f.check_value(None)
     except BaseException, e:
         print e
-    f.set_value(None)
-    f.validate()
-    print f.get_value()
-    f.set_value(111)
-    print f.get_value()
-    f.validate()
-
-
-
-

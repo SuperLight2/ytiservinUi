@@ -21,7 +21,7 @@ class UType(object):
         result = dict()
         for attr_name, attr in cls._get_all_attributes():
             if attr.is_constant():
-                result[attr_name] = attr.get_value()
+                result[attr_name] = attr.get_const_value()
         return result
 
     @classmethod
@@ -35,15 +35,6 @@ class UType(object):
             value_type = field.get_field_type()
             result[key] = value_type()
         return result"""
-
-    def __init__(self, **kwargs):
-        self.validate()
-
-    def get_attribute_value(self, attr_name):
-        pass
-
-    def set_attribute_value(self, attr_name, value):
-        pass
 
     def validate(self):
         for attr_name, attr in self._get_all_attributes():
