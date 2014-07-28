@@ -4,7 +4,7 @@ from core.u_field import UField
 
 
 class UType(object):
-    _db_table_name = UField.Virtual()
+    db_table_name = UField.Virtual()
 
     @classmethod
     def _get_all_fields(cls):
@@ -29,7 +29,7 @@ class UType(object):
 
     @classmethod
     def get_db_table_name(cls):
-        return cls._db_table_name.get_const_value()
+        return cls.db_table_name.get_const_value()
 
     """@classmethod
     def get_data_template(cls):
@@ -55,7 +55,7 @@ class UType(object):
 
 
 class UVertexType(UType):
-    _db_table_name = UField.Constant('u_vertices') # HOW TO REWRITE THIS?
+    db_table_name = UField.Constant('u_vertices') # HOW TO REWRITE THIS?
 
     uid = UField.RequiredInteger()
     utype = UField.RequiredShortInteger()
@@ -63,7 +63,7 @@ class UVertexType(UType):
 
 
 class UEdgeType(UType):
-    _db_table_name = UField.Constant('u_edges')
+    db_table_name = UField.Constant('u_edges')
 
     uid1_type = UField.Virtual()
     uid2_type = UField.Virtual()
