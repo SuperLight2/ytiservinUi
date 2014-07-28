@@ -4,7 +4,7 @@ from core.u_field import UField
 
 
 class UType(object):
-    _db_table_name = None
+    _db_table_name = UField.Virtual()
 
     @classmethod
     def _get_all_attributes(cls):
@@ -12,56 +12,46 @@ class UType(object):
             if pcls is object:
                 continue
             for attr_name, attr in pcls.__dict__.iteritems():
+                if not isinstance(attr, UField):
+                    continue
                 yield attr_name, attr
 
     @classmethod
-    def _get_attributes(cls, field_class):
-        result = {}
+    def get_const_attributes(cls):
+        result = dict()
         for attr_name, attr in cls._get_all_attributes():
-            if not isinstance(attr, UField):
-                continue
-            if attr.get_field_class() == field_class:
-                result[attr_name] = attr
+            if attr.is_constant():
+                result[attr_name] = attr.get_value()
         return result
 
     @classmethod
-    def get_const_attributes(cls):
-        return cls._get_attributes(UField.CONST_FIELD)
-
-    @classmethod
-    def get_data_attributes(cls):
-        return cls._get_attributes(UField.DATA_FIELD)
-
-    @classmethod
     def get_db_table_name(cls):
-        return cls._db_table_name
+        return cls._db_table_name.get_value()
 
-    @classmethod
-    def get_table_creation_sql(cls):
-        cls.validate()
-        result = "CREATE TABLE %s (\n" % cls.get_db_table_name()
-        for name, field in cls._get_attributes(UField.REQUIRED_FIELD).iteritems():
-            result += "  %s %s,\n" % (name, field.get_sql_field_type())
-        result += ")"
-        raise BaseException("Wrong implementation")
-
-    @classmethod
-    def validate(cls):
-        for name, attr in cls._get_attributes(UField.VIRTUAL_FIELD).iteritems():
-            if attr.is_virtual():
-                raise BaseException("Virtual field are not allowed: %s" % name)
-
-    @classmethod
+    """@classmethod
     def get_data_template(cls):
         result = {}
         for key, field in cls.get_data_attributes().iteritems():
             value_type = field.get_field_type()
             result[key] = value_type()
-        return result
+        return result"""
+
+    def __init__(self, **kwargs):
+        self.validate()
+
+    def get_attribute_value(self, attr_name):
+        pass
+
+    def set_attribute_value(self, attr_name, value):
+        pass
+
+    def validate(self):
+        for attr_name, attr in self._get_all_attributes():
+            attr.validate()
 
 
 class UVertexType(UType):
-    _db_table_name = 'u_vertices'
+    UType._db_table_name = UField.Constant('u_vertices')
 
     uid = UField.RequiredInteger()
     utype = UField.RequiredShortInteger()
@@ -69,7 +59,7 @@ class UVertexType(UType):
 
 
 class UEdgeType(UType):
-    _db_table_name = 'u_edges'
+    UType._db_table_name = UField.Constant('u_edges')
 
     uid1_type = UField.Virtual()
     uid2_type = UField.Virtual()
@@ -83,7 +73,11 @@ class UEdgeType(UType):
 
 
 if __name__ == '__main__':
-    UVertexType.validate()
-    #UEdgeType.validate() # must raise an exception!
+    UVertexType().validate()
+    try:
+        UEdgeType().validate()
+    except BaseException, e:
+        print e
     print UVertexType.get_db_table_name()
     print UEdgeType.get_db_table_name()
+    print UVertexType.get_const_attributes()

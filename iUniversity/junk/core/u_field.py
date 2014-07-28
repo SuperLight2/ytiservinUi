@@ -102,6 +102,12 @@ class UField(object):
             raise BaseException("The value is not inited")
         return self._value
 
+    def validate(self):
+        if self.is_virtual():
+            raise BaseException("Virtual field is not allowed: %s")
+        if not self.is_initialized():
+            raise BaseException("Value is not initialized")
+
 
 if __name__ == '__main__':
     # TESTS TESTS TESTS
@@ -111,6 +117,7 @@ if __name__ == '__main__':
         f.set_value(5)
     except BaseException, e:
         print e
+    f.validate()
 
     f = UField.RequiredInteger()
     try:
@@ -119,6 +126,7 @@ if __name__ == '__main__':
         print e
     f.set_value(5)
     print f.get_value()
+    f.validate()
 
     f = UField.Integer()
     try:
@@ -131,9 +139,12 @@ if __name__ == '__main__':
     except BaseException, e:
         print e
     f.set_value(None)
+    f.validate()
     print f.get_value()
     f.set_value(111)
     print f.get_value()
+    f.validate()
+
 
 
 

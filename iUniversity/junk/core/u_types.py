@@ -24,8 +24,24 @@ class UTypes(object):
     }
 
     @classmethod
-    def get(cls, u_type_id):
+    def _get(cls, u_type_id):
+        if u_type_id not in cls.MAPPING:
+            raise BaseException("Unknown type id: %d " % u_type_id)
         return cls.MAPPING[u_type_id]
+
+    @classmethod
+    def get_edge_type(cls, u_type_id):
+        edge = cls._get(u_type_id)
+        if issubclass(edge, UEdgeTypes):
+            return edge
+        raise BaseException("Unknown edge type: %d" % u_type_id)
+
+    @classmethod
+    def get_vertex_type(cls, u_type_id):
+        vertex = cls._get(u_type_id)
+        if issubclass(vertex, UVertexTypes):
+            return vertex
+        raise BaseException("Unknown vertex type: %d" % u_type_id)
 
 
 if __name__ == '__main__':

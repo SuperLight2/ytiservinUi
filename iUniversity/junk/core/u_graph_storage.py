@@ -17,11 +17,7 @@ class UGraphStorage(object):
 
     @classmethod
     def generate_new_id(cls, u_vertex_type_id):
-        u_vertex_type = UTypes.get(u_vertex_type_id)
-        if u_vertex_type is None:
-            raise BaseException("unknown type index: %d" % u_vertex_type_id)
-        if not issubclass(u_vertex_type, UVertexType):
-            raise BaseException(str(u_vertex_type) + " is not a UVertexType class")
+        u_vertex_type = UTypes.get_vertex_type(u_vertex_type_id)
         # TODO(igumerov): use u_vertex_type_id!
         return IDGenerator.generate_unique_id()
 
@@ -35,7 +31,7 @@ class UGraphStorage(object):
 
     @classmethod
     def vertex_create(cls, u_type_id):
-        u_vertex_type = UTypes.get(u_type_id)
+        u_vertex_type = UTypes.get_vertex_type(u_type_id)
         if issubclass(u_vertex_type, UVertexType):
             uid = cls.generate_new_id(u_type_id)
             data_json = json.dumps(u_vertex_type.get_data_template())
@@ -61,7 +57,7 @@ class UGraphStorage(object):
                 break
             uid = int(row['uid'])
             u_type_id = int(row["utype"])
-            data = UTypes.get(u_type_id).get_data_template()
+            data = UTypes.get_vertex_type(u_type_id).get_data_template()
             data.update(json.loads(row["data"]))
             result[uid] = {
                 "uid": uid,
@@ -79,7 +75,7 @@ class UGraphStorage(object):
             raise BaseException("Unknown uid: " + uid)
 
         u_type_id = cls.get_vertex_type_id_by_id(uid)
-        u_vertex_type = UTypes.get(u_type_id)
+        u_vertex_type = UTypes.get_vertex_type(u_type_id)
         if not issubclass(u_vertex_type, UVertexType):
             raise BaseException("Never happens!")
         data = {}
@@ -104,7 +100,7 @@ class UGraphStorage(object):
     def edge_add(cls, uid1, uid2, u_type_id, info=''):
         if uid1 == uid2:
             raise BaseException("Self-loops are not permitted")
-        u_type = UTypes.get(u_type_id)
+        u_type = UTypes.get_edge_type(u_type_id)
         if issubclass(u_type, UEdgeType):
             attrs = u_type.get_const_attributes()
             if attrs['uid1_type'].const_value != cls.get_vertex_type_id_by_id(uid1):
@@ -120,8 +116,8 @@ class UGraphStorage(object):
             ]
 
             u_inverse_type_id = attrs['inverse_type'].const_value
-            u_inverse_type = UTypes.get(u_inverse_type_id)
-            if u_inverse_type is not None:
+            if u_inverse_type_id is not None:
+                u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
                 if issubclass(u_inverse_type, UEdgeType):
                     inverse_attrs = u_inverse_type.get_const_attributes()
                     u_inverse_inverse_type_id = inverse_attrs['inverse_type'].const_value
@@ -149,10 +145,10 @@ class UGraphStorage(object):
             "UPDATE %s SET deleted=1 WHERE uid1=%d AND uid2=%d AND utype=%d AND deleted=0"
             % (cls.DBEdgesTable, uid1, uid2, u_type_id)
         ]
-        u_type = UTypes.get(u_type_id)
+        u_type = UTypes.get_edge_type(u_type_id)
         attrs = u_type.get_const_attributes()
         u_inverse_type_id = attrs['inverse_type'].const_value
-        u_inverse_type = UTypes.get(u_inverse_type_id)
+        u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
         if u_inverse_type is not None:
             queries.append(
                 "UPDATE %s SET deleted=1 WHERE uid2=%d AND uid1=%d AND utype=%d AND deleted=0"
