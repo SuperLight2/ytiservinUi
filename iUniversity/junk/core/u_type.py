@@ -31,13 +31,16 @@ class UType(object):
     def get_db_table_name(cls):
         return cls.db_table_name.get_const_value()
 
-    """@classmethod
-    def get_data_template(cls):
-        result = {}
-        for key, field in cls.get_data_attributes().iteritems():
-            value_type = field.get_field_type()
-            result[key] = value_type()
-        return result"""
+    @classmethod
+    def get_data_attributes(cls, only_nullable=False):
+        result = []
+        for attr_name, attr in cls._get_all_fields().iteritems():
+            if not attr.is_data_field():
+                continue
+            if only_nullable and not attr.is_nullable():
+                continue
+            result.append(attr_name)
+        return result
 
     @classmethod
     def validate(cls):

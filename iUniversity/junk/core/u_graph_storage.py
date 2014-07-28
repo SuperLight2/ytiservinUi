@@ -24,42 +24,38 @@ class UGraphStorage(object):
     def _get_vertex_type_id_by_uid(cls, uid):
         query = "SELECT utype FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
         result = DBRunner().run(query).get_only_or_none_result()
-        if result is None:
-            return None
-        return result["utype"]
+        return result.get('utype')
 
     @classmethod
     def vertex_create(cls, u_type_id):
         uid = cls._generate_new_id(u_type_id)
         query = "INSERT INTO %s (`uid`, `utype`, `deleted`, `data`) VALUE (%d, %d, 0, '%s')" \
                 % (cls.DBVertexesTable, uid, u_type_id, json.dumps({}))
-        DBRunner().run(query)
-        return uid
+        return uid if DBRunner().run(query).get_number_of_affected_rows() == 1 else None
 
     @classmethod
-    def vertex_get(cls, *args): #args should be a list of uids
-        if len(args) == 1:
-            query = "SELECT uid, utype, data FROM %s WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, args[0])
-        else:
-            uids = ", ".join(map(str, args))
-            query = "SELECT uid, utype, data FROM %s WHERE uid IN (%s) AND deleted=0" % (cls.DBVertexesTable, uids)
-        rows = DBRunner().run(query)
-        result = {}.fromkeys(args)
-        while True:
-            row = rows.get_next()
-            if row is None:
-                break
-            uid = int(row["uid"])
-            u_type_id = int(row["utype"])
-            data = UTypes.get_vertex_type(u_type_id).get_data_template()
-            data.update(json.loads(row["data"]))
-            result[uid] = {
-                "uid": uid,
-                "utype": int(row["utype"]),
-            }
-            result[uid].update(data)
-        if len(args) == 1:
-            result = result[args[0]]
+    def vertex_get(cls, uid): #args should be a list of uids
+        query = "SELECT uid, utype, data FROM %s WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, uid)
+        row = DBRunner().run(query).get_next()
+        if row is None:
+            return None
+        uid = int(row["uid"])
+        u_type_id = int(row["utype"])
+        nullable_attrs = UTypes.get_vertex_type(u_type_id).get_data_attributes(only_nullable=True)
+        result = {}.fromkeys(nullable_attrs)
+        result.update(json.loads(row["data"]))
+        result = {
+            "uid": uid,
+            "utype": u_type_id,
+        }
+        #TODO: add checker that result is consistent with UType
+        return result
+
+    @classmethod
+    def vertex_gets(cls, *args):
+        result = dict()
+        for uid in args:
+            result[uid] = cls.vertex_get(uid)
         return result
 
     @classmethod
@@ -67,18 +63,16 @@ class UGraphStorage(object):
         vertex = cls.vertex_get(uid)
         if vertex is None:
             raise BaseException("Unknown uid: " + uid)
-
-        u_type_id = cls._get_vertex_type_id_by_uid(uid)
+        u_type_id = vertex['utype']
+        # u_type_id = cls._get_vertex_type_id_by_uid(uid)
         u_vertex_type = UTypes.get_vertex_type(u_type_id)
+        u_vertex_type.check_value(**kwargs)
         data = {}
         for key, field in u_vertex_type.get_data_attributes().iteritems():
             data[key] = vertex[key]
             if key in kwargs:
                 new_value = kwargs.get(key)
                 value_type = field.get_field_type()
-                if not isinstance(new_value, value_type):
-                    raise BaseException(
-                        "Wrong value type for key: " + key + ". Need: " + value_type + ". Got: " + type(new_value))
                 data[key] = new_value
         query = "UPDATE %s SET data='%s' WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, json.dumps(data), uid)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
@@ -93,7 +87,7 @@ class UGraphStorage(object):
         if uid1 == uid2:
             raise BaseException("Self-loops are not permitted")
         u_type = UTypes.get_edge_type(u_type_id)
-        attrs = u_type.get_const_attributes()
+        attrs = u_type.get_data_attributes(only_nullable=True)
         if attrs['uid1_type'] != cls._get_vertex_type_id_by_uid(uid1):
             raise BaseException("Wrong type for vertex with uid:" + uid1)
         if attrs['uid2_type'] != cls._get_vertex_type_id_by_uid(uid2):
@@ -198,6 +192,10 @@ if __name__ == '__main__':
     assert (user['firstname'] == "Ivan")
 
     user2_id = UGraphStorage.vertex_create(UVertexTypes.USER)
+    try:
+        UGraphStorage.vertex_set(user2_id, lastname=1111)
+    except BaseException, e:
+        print e
     UGraphStorage.vertex_set(user2_id, lastname="Yakimov", firstname="Constant")
     user2 = UGraphStorage.vertex_get(user2_id)
     assert (user2['lastname'] == "Yakimov")

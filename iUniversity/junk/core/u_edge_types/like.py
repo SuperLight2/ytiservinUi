@@ -7,6 +7,6 @@ from core.u_edge_types.edge_types import UEdgeTypes
 
 
 class ULike(UEdgeType):
-    UEdgeType.uid1_type = UField.Constant(UVertexTypes.USER)
-    UEdgeType.uid2_type = UField.Constant(UVertexTypes.RESOURCE)
-    UEdgeType.inverse_type = UField.Constant(UEdgeTypes.LIKED_BY)
+    uid1_type = UField.Constant(UVertexTypes.USER)
+    uid2_type = UField.Constant(UVertexTypes.RESOURCE)
+    inverse_type = UField.Constant(UEdgeTypes.LIKED_BY)
