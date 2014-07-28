@@ -15,7 +15,8 @@ class UType(object):
             for attr_name, attr in pcls.__dict__.iteritems():
                 if not isinstance(attr, UField):
                     continue
-                result[attr_name] = attr
+                if attr_name not in result:
+                    result[attr_name] = attr
         return result
 
     @classmethod
@@ -41,7 +42,6 @@ class UType(object):
     @classmethod
     def validate(cls):
         for attr_name, attr in cls._get_all_fields().iteritems():
-            print attr_name, attr
             if attr.is_virtual():
                 raise BaseException("Found virtual field: %s" % attr_name)
 
