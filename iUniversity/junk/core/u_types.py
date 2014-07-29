@@ -1,5 +1,7 @@
 __author__ = 'gumerovif'
 
+from core.u_type import UVertexType, UEdgeType
+
 from core.u_vertex_types.vertex_types import UVertexTypes
 from core.u_vertex_types.user import UUserType
 from core.u_vertex_types.group import UGroupType
@@ -32,14 +34,14 @@ class UTypes(object):
     @classmethod
     def get_edge_type(cls, u_type_id):
         edge = cls._get(u_type_id)
-        if issubclass(edge, UEdgeTypes):
+        if issubclass(edge, UEdgeType):
             return edge
         raise BaseException("Unknown edge type: %d" % u_type_id)
 
     @classmethod
     def get_vertex_type(cls, u_type_id):
         vertex = cls._get(u_type_id)
-        if issubclass(vertex, UVertexTypes):
+        if issubclass(vertex, UVertexType):
             return vertex
         raise BaseException("Unknown vertex type: %d" % u_type_id)
 

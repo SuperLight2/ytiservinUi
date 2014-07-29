@@ -22,6 +22,7 @@ class UGraphStorage(object):
 
     @classmethod
     def _get_vertex_type_id_by_uid(cls, uid):
+        # TODO: check do we really need this function
         query = "SELECT utype FROM %s WHERE uid=%d" % (cls.DBVertexesTable, uid)
         result = DBRunner().run(query).get_only_or_none_result()
         return result.get('utype')
@@ -34,21 +35,17 @@ class UGraphStorage(object):
         return uid if DBRunner().run(query).get_number_of_affected_rows() == 1 else None
 
     @classmethod
-    def vertex_get(cls, uid): #args should be a list of uids
+    def vertex_get(cls, uid):
         query = "SELECT uid, utype, data FROM %s WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, uid)
         row = DBRunner().run(query).get_next()
         if row is None:
             return None
         uid = int(row["uid"])
         u_type_id = int(row["utype"])
-        nullable_attrs = UTypes.get_vertex_type(u_type_id).get_data_attributes(only_nullable=True)
-        result = {}.fromkeys(nullable_attrs)
+        attrs = UTypes.get_vertex_type(u_type_id).get_data_attributes()
+        result = {}.fromkeys(attrs)
+        result.update({"uid": uid, "utype": u_type_id})
         result.update(json.loads(row["data"]))
-        result = {
-            "uid": uid,
-            "utype": u_type_id,
-        }
-        #TODO: add checker that result is consistent with UType
         return result
 
     @classmethod
@@ -68,12 +65,8 @@ class UGraphStorage(object):
         u_vertex_type = UTypes.get_vertex_type(u_type_id)
         u_vertex_type.check_value(**kwargs)
         data = {}
-        for key, field in u_vertex_type.get_data_attributes().iteritems():
-            data[key] = vertex[key]
-            if key in kwargs:
-                new_value = kwargs.get(key)
-                value_type = field.get_field_type()
-                data[key] = new_value
+        for attr_name in u_vertex_type.get_data_attributes():
+            data[attr_name] = kwargs.get(attr_name, vertex.get(attr_name))
         query = "UPDATE %s SET data='%s' WHERE uid=%d AND deleted=0" % (cls.DBVertexesTable, json.dumps(data), uid)
         return DBRunner().run(query).get_number_of_affected_rows() == 1
 
@@ -195,7 +188,7 @@ if __name__ == '__main__':
     try:
         UGraphStorage.vertex_set(user2_id, lastname=1111)
     except BaseException, e:
-        print e
+        print "Expected behaviour: ", e
     UGraphStorage.vertex_set(user2_id, lastname="Yakimov", firstname="Constant")
     user2 = UGraphStorage.vertex_get(user2_id)
     assert (user2['lastname'] == "Yakimov")
