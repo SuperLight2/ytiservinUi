@@ -80,10 +80,12 @@ class UGraphStorage(object):
         if uid1 == uid2:
             raise BaseException("Self-loops are not permitted")
         u_type = UTypes.get_edge_type(u_type_id)
-        attrs = u_type.get_data_attributes(only_nullable=True)
-        if attrs['uid1_type'] != cls._get_vertex_type_id_by_uid(uid1):
+        attrs = u_type.get_const_attributes()
+        uid1_type_id = cls._get_vertex_type_id_by_uid(uid1)
+        uid2_type_id = cls._get_vertex_type_id_by_uid(uid2)
+        if attrs['uid1_type'] != uid1_type_id:
             raise BaseException("Wrong type for vertex with uid:" + uid1)
-        if attrs['uid2_type'] != cls._get_vertex_type_id_by_uid(uid2):
+        if attrs['uid2_type'] != uid2_type_id:
             raise BaseException("Wrong type for vertex with uid:" + uid2)
 
         timestamp = int(100 * time())
@@ -97,19 +99,19 @@ class UGraphStorage(object):
         if u_inverse_type_id is not None:
             u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
             inverse_attrs = u_inverse_type.get_const_attributes()
-            u_inverse_inverse_type_id = inverse_attrs['inverse_type']
-            if u_inverse_inverse_type_id != u_type_id:
+            if inverse_attrs['inverse_type'] != u_type_id:
                 raise BaseException("Inconsistent exception. Check edges with utypes: %d, %d."
                                     % (u_type_id, u_inverse_type_id))
-            if inverse_attrs['uid2_type'] != cls._get_vertex_type_id_by_uid(uid1):
+            if inverse_attrs['uid2_type'] != uid1_type_id:
                 raise BaseException("Wrong type for vertex with uid:" + uid1)
-            if inverse_attrs['uid1_type'] != cls._get_vertex_type_id_by_uid(uid2):
+            if inverse_attrs['uid1_type'] != uid2_type_id:
                 raise BaseException("Wrong type for vertex with uid:" + uid2)
             queries.append(
                 "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
                 "VALUE (%d, %d, %d, 0, '%s', %d)"
                 % (cls.DBEdgesTable, uid2, uid1, u_inverse_type_id, info, timestamp)
             )
+        print queries
         return DBRunner().run_full_transaction(queries).was_success()
 
     @classmethod
@@ -121,8 +123,7 @@ class UGraphStorage(object):
         u_type = UTypes.get_edge_type(u_type_id)
         attrs = u_type.get_const_attributes()
         u_inverse_type_id = attrs['inverse_type']
-        u_inverse_type = UTypes.get_edge_type(u_inverse_type_id)
-        if u_inverse_type is not None:
+        if u_inverse_type_id is not None:
             queries.append(
                 "UPDATE %s SET deleted=1 WHERE uid2=%d AND uid1=%d AND utype=%d AND deleted=0"
                 % (cls.DBEdgesTable, uid1, uid2, u_inverse_type_id)
@@ -233,9 +234,9 @@ if __name__ == '__main__':
     assert(UGraphStorage.can_delete_vertex(user_id))
     assert(UGraphStorage.can_delete_vertex(group_id))
 
-    UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
-    assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
-    assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
+    #UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
+    #assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
+    #assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
 
     UGraphStorage.edge_delete(user_id, user2_id, UEdgeTypes.FRIENDS)
     assert(UGraphStorage.can_delete_vertex(user_id))
