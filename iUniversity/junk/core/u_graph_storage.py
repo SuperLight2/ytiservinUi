@@ -61,7 +61,6 @@ class UGraphStorage(object):
         if vertex is None:
             raise BaseException("Unknown uid: " + uid)
         u_type_id = vertex['utype']
-        # u_type_id = cls._get_vertex_type_id_by_uid(uid)
         u_vertex_type = UTypes.get_vertex_type(u_type_id)
         u_vertex_type.check_value(**kwargs)
         data = {}
@@ -90,7 +89,7 @@ class UGraphStorage(object):
 
         timestamp = int(100 * time())
         queries = [
-            "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
+            "REPLACE INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
             "VALUE (%d, %d, %d, 0, '%s', %d)"
             % (cls.DBEdgesTable, uid1, uid2, u_type_id, info, timestamp)
         ]
@@ -107,11 +106,10 @@ class UGraphStorage(object):
             if inverse_attrs['uid1_type'] != uid2_type_id:
                 raise BaseException("Wrong type for vertex with uid:" + uid2)
             queries.append(
-                "INSERT INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
+                "REPLACE INTO %s (`uid1`, `uid2`, `utype`, `deleted`, `info`, `timestamp`) "
                 "VALUE (%d, %d, %d, 0, '%s', %d)"
                 % (cls.DBEdgesTable, uid2, uid1, u_inverse_type_id, info, timestamp)
             )
-        print queries
         return DBRunner().run_full_transaction(queries).was_success()
 
     @classmethod
@@ -167,7 +165,7 @@ class UGraphStorage(object):
         return (results1.get_results_count() == 0) and (results2.get_results_count() == 0)
 
 
-def load_graph(config_file):
+def load_graph():
     rows = DBRunner().run("SELECT uid FROM %s" % UGraphStorage.DBVertexesTable)
     while True:
         x = rows.get_next()
@@ -177,7 +175,7 @@ def load_graph(config_file):
 
 
 if __name__ == '__main__':
-    load_graph(None)
+    load_graph()
 
     user_id = UGraphStorage.vertex_create(UVertexTypes.USER)
     UGraphStorage.vertex_set(user_id, lastname="Bazarov", firstname="Ivan")
@@ -191,13 +189,17 @@ if __name__ == '__main__':
     except BaseException, e:
         print "Expected behaviour: ", e
     UGraphStorage.vertex_set(user2_id, lastname="Yakimov", firstname="Constant")
-    user2 = UGraphStorage.vertex_get(user2_id)
-    assert (user2['lastname'] == "Yakimov")
-    assert (user2['firstname'] == "Constant")
 
     group_id = UGraphStorage.vertex_create(UVertexTypes.GROUP)
     UGraphStorage.vertex_set(group_id, name="FILMFILMFILM")
-    group = UGraphStorage.vertex_get(group_id)
+
+    user2_and_group = UGraphStorage.vertex_gets(user2_id, group_id)
+
+    user2 = user2_and_group[user2_id]
+    assert (user2['lastname'] == "Yakimov")
+    assert (user2['firstname'] == "Constant")
+
+    group = user2_and_group[group_id]
     assert (group['name'] == "FILMFILMFILM")
 
     resource_id = UGraphStorage.vertex_create(UVertexTypes.RESOURCE)
@@ -223,6 +225,7 @@ if __name__ == '__main__':
     assert(UGraphStorage.edge_get(resource_id, user_id, UEdgeTypes.LIKED_BY) is not None)
 
     edges = UGraphStorage.get_edges_by_type(user_id, UEdgeTypes.MEMBER_OF_GROUP)
+    assert(len(edges) == 1)
     assert (edges[0]['uid2'] == group_id)
     assert(not UGraphStorage.can_delete_vertex(user_id))
     assert(not UGraphStorage.can_delete_vertex(group_id))
@@ -231,14 +234,18 @@ if __name__ == '__main__':
     UGraphStorage.edge_delete(user_id, user2_id, UEdgeTypes.FRIENDS)
     UGraphStorage.edge_delete(user_id, resource_id, UEdgeTypes.LIKE)
     assert(UGraphStorage.edge_get(user_id, group_id, UEdgeTypes.MEMBER_OF_GROUP) is None)
+    assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is None)
+    assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is None)
     assert(UGraphStorage.can_delete_vertex(user_id))
     assert(UGraphStorage.can_delete_vertex(group_id))
 
-    #UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
-    #assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
-    #assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
+    UGraphStorage.edge_add(user_id, user2_id, UEdgeTypes.FRIENDS)
+    assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is not None)
+    assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is not None)
 
     UGraphStorage.edge_delete(user_id, user2_id, UEdgeTypes.FRIENDS)
+    assert(UGraphStorage.edge_get(user_id, user2_id, UEdgeTypes.FRIENDS) is None)
+    assert(UGraphStorage.edge_get(user2_id, user_id, UEdgeTypes.FRIENDS) is None)
     assert(UGraphStorage.can_delete_vertex(user_id))
 
     UGraphStorage.vertex_delete(user_id)
