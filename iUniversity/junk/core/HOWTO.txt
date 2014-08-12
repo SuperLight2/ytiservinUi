@@ -1,5 +1,0 @@
-HOWTO CREATE A NEW VERTEX:
-  pass
-
-HOWTO CREATE A NEW EDGE:
-  pass
